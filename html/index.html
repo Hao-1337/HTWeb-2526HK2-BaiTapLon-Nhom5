@@ -7,6 +7,43 @@
 
     <link rel="stylesheet" href="style.css">
     <script src="../js/index.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: content-box;
+        }
+
+        html {
+            background-image: linear-gradient(to bottom, red, orange, yellow, green, blue, violet, purple);
+            background-repeat: no-repeat;
+            background-size: 100dvw 100dvh;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            animation: rotate 6s linear infinite;
+            font-size: 4rem;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            margin-top: 40dvh;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotateY(0deg);
+            }
+            
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Hân vip hơn mức cho phép.</h1>
