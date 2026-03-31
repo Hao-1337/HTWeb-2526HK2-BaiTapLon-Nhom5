@@ -69,6 +69,7 @@ export function footerMarkup() {
           music lovers and sound specialists who are devoted to helping you get the most out of
           personal audio. Come and visit our demo facility. We are open 7 days a week.
         </p>
+        <p class="footer-sign">Designed by Nhóm 5 <a class="footer-link" href="https://github.com/Hao-1337/HTWeb-2526HK2-BaiTapLon-Nhom5" alt="View source code here">(view source code)</a></p>
         <div class="footer-bottom">
           <p class="footer-sign">Copyright 2026. All Rights Reserved</p>
           <div class="footer-socials">
@@ -81,7 +82,7 @@ export function footerMarkup() {
     </footer>
   `;
 }
-
+  
 let modalLockCount = 0;
 
 function lockBodyScroll() {

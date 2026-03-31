@@ -99,8 +99,9 @@
 }
 
 html {
-    font-size: 62.5%;
+    font-size: min(16px, 72.5%);
     scroll-behavior: smooth;
+    /* scroll-snap-type: y proximity; */
 }
 
 *,
@@ -123,6 +124,10 @@ body {
 
 body.modal-open {
     overflow: hidden;
+}
+
+section {
+    scroll-snap-align: center;
 }
 
 a {
@@ -159,7 +164,6 @@ h3 {
 
 p {
     color: rgba(0, 0, 0, 0.5);
-    text-indent: 1em;
 }
 
 p ~ p {
@@ -359,7 +363,8 @@ body[data-page='speakers'] main {
     display: flex;
     justify-content: center;
     padding: 0 2.4rem 0;
-    height: 72.8rem;
+    height: calc(100vh - 4rem);
+    height: 100dvh;
     background: rgba(25, 25, 25, 1.0);
     z-index: 1;
 }
@@ -548,7 +553,7 @@ body[data-page='speakers'] main {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    margin: 20rem auto 16.8rem;
+    margin: 14rem auto 16.8rem;
 }
 
 .category-card {
@@ -598,7 +603,7 @@ body[data-page='speakers'] main {
     opacity: 1;
 }
 
-.selection-animation:hover .category-card {
+.selection-animation:has(.category-card:hover) .category-card:not(:hover) {
     transform: scale(0.95);
 }
 
@@ -744,7 +749,7 @@ body[data-page='speakers'] main {
 
 .highlight.yx1 > div {
     background: rgba(241, 241, 241, 1.0);
-    width: 100%;
+    width: 60%;
     border-radius: 8px;
     max-height: 100%;
     padding-left: 8%;
@@ -843,7 +848,6 @@ body[data-page='speakers'] main {
 .footer-socials {
     display: inline-flex;
     gap: 1.6rem;
-    transform: translateY(-6.3rem);
 }
 
 .footer-socials a {
@@ -857,6 +861,10 @@ body[data-page='speakers'] main {
 .footer-socials img {
     width: 2.4rem;
     height: 2.4rem;
+}
+
+.footer-link {
+    text-decoration: underline;
 }
 
 .category-hero {
@@ -874,12 +882,13 @@ body[data-page='speakers'] main {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    height: 23.9rem;
+    height: 12.9rem;
+    padding-top: 10%;
 }
 
 .category-hero h1 {
     color: rgba(255, 255, 255, 1.0);
-    margin-bottom: 9.7rem;
+    margin-bottom: 5.2rem;
     letter-spacing: 0.2rem;
     font-size: 4rem;
     line-height: 4.4rem;
@@ -1480,8 +1489,9 @@ body[data-page='checkout'] {
 .checkout-empty {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 1.2rem;
+    min-height: 8rem;
 }
 
 .summary-item img {

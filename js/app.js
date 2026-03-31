@@ -3,6 +3,8 @@ import { renderLayout, wireCart, wireHeader } from "./render.js";
 
 const pageName = document.body.dataset.page;
 
+window.scrollTo(0, 0);
+window.addEventListener("load", () => requestAnimationFrame(() => document.documentElement.scrollSnapType = "y mandatory"));
 loadStore();
 renderLayout(pageName);
 wireHeader(pageName);

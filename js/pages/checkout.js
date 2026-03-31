@@ -1,5 +1,5 @@
 import { getState, cartTotal, clearCart } from "../store.js";
-import { formatPrice, syncCartCount, renderCartItems } from "../render.js";
+import { formatPrice, syncCartCount, renderCartItems, categoryNavMarkup } from "../render.js";
 import { createModalController } from "../render.js";
 
 export async function initCheckoutPage() {
@@ -13,11 +13,11 @@ export async function initCheckoutPage() {
     if (!hasItems) {
         document.title = "Checkout - No items in cart";
         root.innerHTML = `
-      <section class="container checkout-layout">
+      <section class="container checkout-layout checkout-empty">
         <button class="go-back" type="button" data-go-back>< Go Back</button>
-        <p>No items in your cart. Please add items to proceed to checkout.</p>
+        <h4>No items in your cart. Please add items to proceed to checkout.</h4>
       </section>
-    `;
+    ` + categoryNavMarkup({ withContainer: true });
         const goBackBtn = document.querySelector("[data-go-back]");
         if (goBackBtn) {
             goBackBtn.addEventListener("click", () => {
