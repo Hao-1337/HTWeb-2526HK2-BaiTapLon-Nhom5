@@ -275,9 +275,57 @@ export function renderLayout(activePath) {
     }
 
     const mobileNav = header.querySelector("[data-mobile-nav]");
-    const mobileNavCards = createCategoryNavElement({ withContainer: false, extraClass: "mobile-nav-cards" });
-    if (mobileNav && mobileNavCards) {
-      mobileNav.append(mobileNavCards);
+    if (mobileNav) {
+      const mobileNavList = document.createElement("ul");
+      mobileNavList.className = "mobile-nav-list";
+
+      const navThumbMap = {
+        home: "./assets/shared/desktop/logo.svg",
+        headphones: "./assets/shared/desktop/image-headphones.png",
+        speakers: "./assets/shared/desktop/image-speakers.png",
+        earphones: "./assets/shared/desktop/image-earphones.png"
+      };
+
+      const desktopLinks = Array.from(header.querySelectorAll("nav a"));
+      desktopLinks.forEach((link) => {
+        const listItem = document.createElement("li");
+        const mobileLink = document.createElement("a");
+        const pageKey = link.getAttribute("data-page-link") ?? "";
+        const label = link.textContent?.trim() ?? "";
+        mobileLink.href = link.getAttribute("href") ?? "#";
+
+        const leftWrap = document.createElement("span");
+        leftWrap.className = "mobile-nav-left";
+
+        const thumb = document.createElement("img");
+        thumb.className = "mobile-nav-thumb";
+        thumb.src = navThumbMap[pageKey] ?? "./assets/shared/desktop/logo.svg";
+        thumb.alt = "";
+        thumb.setAttribute("aria-hidden", "true");
+
+        const text = document.createElement("span");
+        text.className = "mobile-nav-label";
+        text.textContent = label;
+
+        leftWrap.append(thumb, text);
+
+        const arrow = document.createElement("img");
+        arrow.className = "mobile-nav-arrow";
+        arrow.src = "./assets/shared/desktop/icon-arrow-right.svg";
+        arrow.alt = "";
+        arrow.setAttribute("aria-hidden", "true");
+
+        mobileLink.append(leftWrap, arrow);
+
+        if (link.getAttribute("data-active") === "true") {
+          mobileLink.setAttribute("data-active", "true");
+        }
+
+        listItem.append(mobileLink);
+        mobileNavList.append(listItem);
+      });
+
+      mobileNav.replaceChildren(mobileNavList);
     }
   }
   headerRoot.replaceChildren(...[header, cartModal].filter(Boolean));
@@ -311,6 +359,8 @@ export function wireHeader(activePath) {
   }
 
   let menuOpen = false;
+  let resizeTicking = false;
+  let isMobileViewport = window.matchMedia("(max-width: 768px)").matches;
 
   const syncHeaderScroll = () => {
     const scrolled = window.scrollY >= 390;
@@ -318,7 +368,7 @@ export function wireHeader(activePath) {
     if (activePath !== "home") {
       header.setAttribute("data-home", "false");
     }
-    mobileNav.style.top = header.offsetHeight / 2 + "px";
+    mobileNav.style.top = `${header.offsetHeight}px`;
   };
 
   const openMenu = () => {
@@ -337,6 +387,26 @@ export function wireHeader(activePath) {
     unlockBodyScroll();
   };
 
+  const onResize = () => {
+    if (resizeTicking) {
+      return;
+    }
+
+    resizeTicking = true;
+    window.requestAnimationFrame(() => {
+      const mobileNow = window.matchMedia("(max-width: 768px)").matches;
+      const switchedToDesktop = isMobileViewport && !mobileNow;
+      isMobileViewport = mobileNow;
+
+      if (switchedToDesktop && menuOpen) {
+        closeMenu();
+      }
+
+      syncHeaderScroll();
+      resizeTicking = false;
+    });
+  };
+
   menuToggle.addEventListener("click", () => {
     if (menuOpen) {
       closeMenu();
@@ -352,5 +422,6 @@ export function wireHeader(activePath) {
   });
 
   window.addEventListener("scroll", syncHeaderScroll);
+  window.addEventListener("resize", onResize);
   syncHeaderScroll();
 }
