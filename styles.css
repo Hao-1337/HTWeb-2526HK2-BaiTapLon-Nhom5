@@ -792,6 +792,8 @@ body[data-page='speakers'] main {
     height: calc(100vh - 4rem);
     height: 100dvh;
     background: rgba(25, 25, 25, 1.0);
+    position: relative;
+    overflow: hidden;
     z-index: 1;
 }
 
@@ -858,6 +860,51 @@ body[data-page='speakers'] main {
     color: rgba(255, 255, 255, 0.75);
     font-weight: 200;
     margin-bottom: 4rem;
+}
+
+.hero-see-more {
+    z-index: 200;
+    margin-bottom: 0 !important;
+    position: absolute;
+    left: 50%;
+    bottom: 2.4rem;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.28rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    animation: heroSeeMoreFloat 1.8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero-see-more::after {
+    content: '';
+    display: block;
+    width: 0.8rem;
+    height: 0.8rem;
+    margin: 0.6rem auto 0;
+    border-right: 0.2rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.2rem solid rgba(255, 255, 255, 0.75);
+    transform: rotate(45deg);
+}
+
+.hero-see-more.is-hidden {
+    opacity: 0;
+    transform: translate(-50%, 0.8rem);
+}
+
+@keyframes heroSeeMoreFloat {
+    0%,
+    100% {
+        transform: translateX(-50%);
+    }
+
+    50% {
+        transform: translate(-50%, 0.45rem);
+    }
 }
 
 .btn {
@@ -2086,7 +2133,8 @@ body[data-page='checkout'] {
 
 @media screen and (max-width: 1024px) {
     .hero {
-        height: 72.8rem;
+        height: calc(100vh - 4rem);
+        height: 100dvh;
         padding: 0;
     }
 
@@ -2106,6 +2154,10 @@ body[data-page='checkout'] {
     .hero p {
         max-width: 34.9rem;
         margin: 0 auto 4rem;
+    }
+
+    .hero-see-more {
+        bottom: 2rem;
     }
 
     .hero-img {
@@ -2327,7 +2379,8 @@ body[data-page='checkout'] {
     }
 
     .hero {
-        height: 72.8rem;
+        height: calc(100vh - 4rem);
+        height: 100dvh;
         padding: 0;
     }
 
@@ -2351,6 +2404,7 @@ body[data-page='checkout'] {
         background-position: center center;
         background-size: contain;
         min-width: 0;
+        min-height: 100%;
         margin-top: 0;
     }
 
@@ -2571,12 +2625,19 @@ body[data-page='checkout'] {
     }
 
     .hero {
-        height: 60rem;
+        height: calc(100vh - 4rem);
+        height: 100dvh;
+    }
+
+    .hero-see-more {
+        bottom: 1.6rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.22rem;
     }
 
     .hero-img {
         background-image: url('/assets/home/mobile/image-header.jpg');
-        min-height: 51rem;
+        min-height: 100%;
     }
 
     .hero-inner>div:not(.hero-img) {
