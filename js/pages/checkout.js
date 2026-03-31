@@ -14,7 +14,7 @@ export async function initCheckoutPage() {
         document.title = "Checkout - No items in cart";
         root.innerHTML = `
       <section class="container checkout-layout">
-        <button class="go-back" type="button" data-go-back>Go Back</button>
+        <button class="go-back" type="button" data-go-back>< Go Back</button>
         <p>No items in your cart. Please add items to proceed to checkout.</p>
       </section>
     `;
@@ -29,7 +29,7 @@ export async function initCheckoutPage() {
 
     root.innerHTML = `
     <section class="container checkout-layout">
-      <button class="go-back" type="button" data-go-back>Go Back</button>
+      <button class="go-back" type="button" data-go-back>< Go Back</button>
       <form class="checkout-form" data-checkout-form id="checkout-form">
         <h1>Checkout</h1>
         <h3 class="form-group-title">Billing Details</h3>

@@ -1281,6 +1281,8 @@ body[data-page='checkout'] {
 }
 
 .checkout-layout .go-back {
+    text-align: left;
+    text-decoration: underline;
     grid-column: 1 / -1;
     margin: 0 0 0.8rem;
 }
@@ -1402,7 +1404,7 @@ body[data-page='checkout'] {
 
 .checkout-form label {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.8rem;
     font-size: 1.2rem;
     font-weight: 700;
