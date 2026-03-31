@@ -1,4 +1,4 @@
-import { getAccountSession, isLoggedIn, login, logout, getOrders } from "../account-store.js";
+import { getAccountSession, isLoggedIn, login, logout, getOrders, removeOrder } from "../account-store.js";
 import { cloneTemplateContent, formatPrice } from "../render.js";
 
 function formatDate(isoString) {
@@ -10,9 +10,11 @@ function renderOrderCard(order) {
     const extraCount = order.items.length - 1;
     const statusClass = order.status === "complete" ? "status-complete" : "status-awaiting";
     const statusLabel = order.status === "complete" ? "Delivered" : "Awaiting Delivery";
+        const paymentMethod = order.paymentMethod || "cash";
+        const paymentLabel = paymentMethod === "e-money" ? "e-Payment" : "Cash on Delivery";
 
     return `
-    <article class="order-card">
+    <article class="order-card" data-order-id="${order.id}" data-payment-method="${paymentMethod}" data-order-status="${order.status}">
       <div class="order-card-header">
         <span class="order-id">${order.id}</span>
         <span class="order-date">${formatDate(order.date)}</span>
@@ -28,9 +30,16 @@ function renderOrderCard(order) {
           ${extraCount > 0 ? `<span class="order-extra-items">+${extraCount} more item${extraCount > 1 ? "s" : ""}</span>` : ""}
         </div>
         <div class="order-total-info">
+                    <span class="order-payment">${paymentLabel}</span>
           <span>Grand Total</span>
           <strong>${formatPrice(order.grand)}</strong>
         </div>
+                <div class="order-actions">
+                    <button class="btn btn-dark order-cancel" type="button" data-cancel-order ${order.status === "complete" ? "disabled" : ""}>Cancel Order</button>
+                    <p class="order-cancel-tooltip" data-cancel-tooltip role="alert" hidden>
+                        Only awaiting e-payment orders can be canceled.
+                    </p>
+                </div>
       </div>
     </article>
   `;
@@ -46,6 +55,46 @@ function renderOrders(filter) {
         return;
     }
     container.innerHTML = orders.map(renderOrderCard).join("");
+}
+
+function showCancelErrorTooltip(card) {
+    const tooltip = card.querySelector("[data-cancel-tooltip]");
+    if (!tooltip) return;
+
+    tooltip.hidden = false;
+    window.clearTimeout(tooltip._hideTimerId);
+    tooltip._hideTimerId = window.setTimeout(() => {
+        tooltip.hidden = true;
+    }, 2200);
+}
+
+function initOrderCancelHandlers(tabs) {
+    const list = document.querySelector("[data-orders-list]");
+    if (!list) return;
+
+    list.addEventListener("click", (event) => {
+        const btn = event.target.closest("[data-cancel-order]");
+        if (!btn) return;
+
+        const card = btn.closest("[data-order-id]");
+        if (!card) return;
+
+        const paymentMethod = card.dataset.paymentMethod;
+        const orderStatus = card.dataset.orderStatus;
+        if (paymentMethod !== "e-money" || orderStatus === "complete") {
+            showCancelErrorTooltip(card);
+            return;
+        }
+
+        const orderId = card.dataset.orderId;
+        if (!orderId) return;
+
+        const removed = removeOrder(orderId);
+        if (!removed) return;
+
+        const activeTab = [...tabs].find((tab) => tab.hasAttribute("data-active"));
+        renderOrders(activeTab?.dataset.tab || "all");
+    });
 }
 
 function initDashboard(isNew = false) {
@@ -80,6 +129,7 @@ function initDashboard(isNew = false) {
     }
 
     renderOrders("all");
+    initOrderCancelHandlers(tabs);
 
     tabs.forEach((tab) => {
         tab.addEventListener("click", () => {

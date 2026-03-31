@@ -300,6 +300,7 @@ export async function initCheckoutPage() {
     saveOrder({
       id: generateOrderId(),
       date: new Date().toISOString(),
+      paymentMethod: payload.payment,
       items: state.cartItems.map((item) => ({ ...item })),
       total: cartTotal(),
       shipping,

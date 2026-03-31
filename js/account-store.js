@@ -5,6 +5,7 @@ function createDemoCompletedOrder(name, email) {
     return {
         id: "ORD-DEMO01",
         date: "2026-03-20T09:30:00Z",
+        paymentMethod: "cash",
         items: [
             {
                 id: "zx7-speaker",
@@ -108,6 +109,23 @@ export function saveOrder(order) {
     if (!accounts[session.email]) return;
     accounts[session.email].orders.unshift(order);
     saveAccounts(accounts);
+}
+
+export function removeOrder(orderId) {
+    const session = getAccountSession();
+    if (!session) return false;
+
+    const accounts = getAccounts();
+    const account = accounts[session.email];
+    if (!account || !Array.isArray(account.orders)) return false;
+
+    const beforeCount = account.orders.length;
+    account.orders = account.orders.filter((order) => order.id !== orderId);
+
+    if (account.orders.length === beforeCount) return false;
+
+    saveAccounts(accounts);
+    return true;
 }
 
 export function generateOrderId() {
