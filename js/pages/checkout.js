@@ -30,21 +30,21 @@ export async function initCheckoutPage() {
     root.innerHTML = `
     <section class="container checkout-layout">
       <button class="go-back" type="button" data-go-back>< Go Back</button>
-      <form class="checkout-form" data-checkout-form id="checkout-form">
+      <form class="checkout-form" data-checkout-form id="checkout-form" novalidate>
         <h1>Checkout</h1>
         <h3 class="form-group-title">Billing Details</h3>
         <div class="form-grid">
           <label>
             <span class="label-row"><span>Name</span><span class="form-error" data-err="name"></span></span>
-            <input name="name" required placeholder="Alexei Ward" />
+            <input name="name" required autocomplete="name" placeholder="Alexei Ward" />
           </label>
           <label>
             <span class="label-row"><span>Email Address</span><span class="form-error" data-err="email"></span></span>
-            <input name="email" type="email" required placeholder="alexei@mail.com" />
+            <input name="email" type="email" required autocomplete="email" inputmode="email" placeholder="alexei@mail.com" />
           </label>
           <label>
             <span class="label-row"><span>Phone Number</span><span class="form-error" data-err="phone"></span></span>
-            <input name="phone" required placeholder="+1 202-555-0136" />
+            <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="+1 202-555-0136" />
           </label>
         </div>
 
@@ -52,19 +52,19 @@ export async function initCheckoutPage() {
         <div class="form-grid">
           <label class="span-2">
             <span class="label-row"><span>Address</span><span class="form-error" data-err="address"></span></span>
-            <input name="address" required placeholder="1137 Williams Avenue" />
+            <input name="address" required autocomplete="street-address" placeholder="1137 Williams Avenue" />
           </label>
           <label>
             <span class="label-row"><span>Zip Code</span><span class="form-error" data-err="zip"></span></span>
-            <input name="zip" required placeholder="10001" />
+            <input name="zip" required autocomplete="postal-code" placeholder="10001" />
           </label>
           <label>
             <span class="label-row"><span>City</span><span class="form-error" data-err="city"></span></span>
-            <input name="city" required placeholder="New York" />
+            <input name="city" required autocomplete="address-level2" placeholder="New York" />
           </label>
           <label>
             <span class="label-row"><span>Country</span><span class="form-error" data-err="country"></span></span>
-            <input name="country" required placeholder="United States" />
+            <input name="country" required autocomplete="country-name" placeholder="United States" />
           </label>
         </div>
 
@@ -87,11 +87,11 @@ export async function initCheckoutPage() {
           <div class="form-grid">
             <label>
               <span class="label-row"><span>e-Money Number</span><span class="form-error" data-err="eMoneyNum"></span></span>
-              <input name="eMoneyNum" data-emoney-num placeholder="238521993" />
+              <input name="eMoneyNum" data-emoney-num inputmode="numeric" maxlength="9" placeholder="238521993" />
             </label>
             <label>
               <span class="label-row"><span>e-Money PIN</span><span class="form-error" data-err="eMoneyPin"></span></span>
-              <input name="eMoneyPin" data-emoney-pin placeholder="6891" />
+              <input name="eMoneyPin" data-emoney-pin inputmode="numeric" maxlength="4" placeholder="6891" />
             </label>
           </div>
         </div>
@@ -142,7 +142,7 @@ export async function initCheckoutPage() {
         <div class="summary-line"><span>VAT (included)</span><strong>${formatPrice(vat)}</strong></div>
         <div class="summary-line grand"><span>Grand total</span><strong>${formatPrice(grand)}</strong></div>
 
-        <button type="button" class="btn btn-primary" data-place-order ${hasItems ? "" : "disabled"}><span>Continue &amp; Pay</span></button>
+        <button type="submit" form="checkout-form" class="btn btn-primary" data-place-order ${hasItems ? "" : "disabled"}><span>Continue &amp; Pay</span></button>
       </aside>
     </section>
 
@@ -173,7 +173,7 @@ export async function initCheckoutPage() {
             <span class="success-total-amount">${formatPrice(grand)}</span>
           </div>
         </div>
-        <a class="btn btn-dark" data-success-home href="./index.html"><span>Back to Home</span></a>
+        <a class="btn btn-dark btn-flex btn-grow" data-success-home href="./index.html"><span>Back to Home</span></a>
       </div>
     </div>
   `;
@@ -198,12 +198,20 @@ export async function initCheckoutPage() {
         cashExtra.hidden = isEMoney;
         eMoneyNum.required = isEMoney;
         eMoneyPin.required = isEMoney;
-    };
 
-    paymentRadios.forEach((radio) => {
-        radio.addEventListener("change", syncPaymentState);
-    });
-    syncPaymentState();
+      if (!isEMoney) {
+        clearFieldError("eMoneyNum");
+        clearFieldError("eMoneyPin");
+        return;
+      }
+
+      if (touchedFields.has("eMoneyNum")) {
+        validateField("eMoneyNum");
+      }
+      if (touchedFields.has("eMoneyPin")) {
+        validateField("eMoneyPin");
+      }
+    };
 
     const successModalController = createModalController({
         modal: success,
@@ -211,7 +219,7 @@ export async function initCheckoutPage() {
         trigger: placeOrder,
     });
 
-    if (!placeOrder) {
+    if (!placeOrder || !form) {
         return;
     }
 
@@ -225,19 +233,58 @@ export async function initCheckoutPage() {
         });
     }
 
-    const PHONE_RE = /^[+]?[\d\s\-().]{7,15}$/;
+    const NAME_RE = /^[\p{L}]+(?:[\p{L}' -]*[\p{L}])?$/u;
+    const EMAIL_RE = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$/i;
+    const PHONE_ALLOWED_RE = /^\+?[\d\s().-]+$/;
+    const ADDRESS_RE = /^(?=.*[\p{L}])(?=.*\d)[\p{L}\d\s.,'#/-]{5,}$/u;
+    const ZIP_RE = /^[A-Za-z0-9][A-Za-z0-9 -]{2,9}$/;
+    const PLACE_RE = /^[\p{L}]+(?:[\p{L}' -]*[\p{L}])?$/u;
+
+    const hasValidPhoneDigits = (value) => {
+      const digits = value.replace(/\D/g, "");
+      return digits.length >= 8 && digits.length <= 15;
+    };
 
     const validators = {
-        name: (v) => (v.trim() ? "" : "Cannot be empty"),
-        email: (v) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? "" : "Wrong format"),
-        phone: (v) => (PHONE_RE.test(v.trim()) ? "" : "Invalid phone number"),
-        address: (v) => (v.trim() ? "" : "Cannot be empty"),
-        zip: (v) => (/^\d{3,10}$/.test(v.trim()) ? "" : "Must be a number"),
-        city: (v) => (v.trim() ? "" : "Cannot be empty"),
-        country: (v) => (v.trim() ? "" : "Cannot be empty"),
+      name: (v) => {
+        const value = v.trim();
+        if (!value) return "Cannot be empty";
+        return NAME_RE.test(value) ? "" : "Enter a valid name";
+      },
+      email: (v) => {
+        const value = v.trim();
+        if (!value) return "Cannot be empty";
+        return EMAIL_RE.test(value) ? "" : "Enter a valid email";
+      },
+      phone: (v) => {
+        const value = v.trim();
+        if (!value) return "Cannot be empty";
+        return PHONE_ALLOWED_RE.test(value) && hasValidPhoneDigits(value) ? "" : "Enter a valid phone number";
+      },
+      address: (v) => {
+        const value = v.trim();
+        if (!value) return "Cannot be empty";
+        return ADDRESS_RE.test(value) ? "" : "Enter a valid street address";
+      },
+      zip: (v) => {
+        const value = v.trim();
+        if (!value) return "Cannot be empty";
+        return ZIP_RE.test(value) ? "" : "Enter a valid ZIP code";
+      },
+      city: (v) => {
+        const value = v.trim();
+        if (!value) return "Cannot be empty";
+        return PLACE_RE.test(value) ? "" : "Enter a valid city";
+      },
+      country: (v) => {
+        const value = v.trim();
+        if (!value) return "Cannot be empty";
+        return PLACE_RE.test(value) ? "" : "Enter a valid country";
+      },
         eMoneyNum: (v) => (cashExtra.hidden ? (/^\d{9}$/.test(v.trim()) ? "" : "9 digits required") : ""),
         eMoneyPin: (v) => (cashExtra.hidden ? (/^\d{4}$/.test(v.trim()) ? "" : "4 digits required") : ""),
     };
+    const touchedFields = new Set();
 
     const showFieldError = (name, message) => {
         const errEl = document.querySelector(`[data-err="${name}"]`);
@@ -250,30 +297,51 @@ export async function initCheckoutPage() {
 
     const clearFieldError = (name) => showFieldError(name, "");
 
+  const validateField = (name, { markTouched = false } = {}) => {
+    const input = form.elements[name];
+    const validate = validators[name];
+    if (!input || !validate) return true;
+    if (markTouched) touchedFields.add(name);
+    const msg = validate(input.value);
+    showFieldError(name, msg);
+    return !msg;
+  };
+
     const validateAll = () => {
         let valid = true;
-        for (const [name, validate] of Object.entries(validators)) {
-            const input = form.elements[name];
-            if (!input) continue;
-            const msg = validate(input.value);
-            showFieldError(name, msg);
-            if (msg) valid = false;
+    for (const name of Object.keys(validators)) {
+      if (!validateField(name, { markTouched: true })) {
+        valid = false;
+      }
         }
         return valid;
     };
 
-    // Clear errors on user input
     Object.keys(validators).forEach((name) => {
         const input = form.elements[name];
         if (input && input.type !== "radio") {
-            input.addEventListener("input", () => clearFieldError(name));
+      input.addEventListener("input", () => {
+        if (!input.value.trim() && !touchedFields.has(name)) {
+          clearFieldError(name);
+          return;
+        }
+        validateField(name);
+      });
+      input.addEventListener("blur", () => {
+        validateField(name, { markTouched: true });
+      });
         }
     });
 
-    placeOrder.addEventListener("click", () => {
+      paymentRadios.forEach((radio) => {
+        radio.addEventListener("change", syncPaymentState);
+      });
+      syncPaymentState();
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
         syncPaymentState();
         if (!validateAll()) {
-            // Scroll first error into view
             const firstError = form.querySelector(".input-error");
             if (firstError) firstError.focus();
             return;
@@ -281,7 +349,7 @@ export async function initCheckoutPage() {
 
         const payload = Object.fromEntries(new FormData(form).entries());
         setTimeout(() => {
-            alert(`just to make sure everything is collected correctly \n${JSON.stringify(payload)}`);
+            alert(`\n${JSON.stringify(payload)}`);
         }, 1200);
 
         successModalController.open();

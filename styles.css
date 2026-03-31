@@ -480,6 +480,10 @@ body[data-page='speakers'] main {
     top: 2px;
 }
 
+.btn-flex {
+    width: 100%;
+}
+
 .btn-grow {
     flex-grow: 1;
 }
@@ -1411,10 +1415,11 @@ body[data-page='checkout'] {
     margin-bottom: 4.1rem;
 }
 
-.checkout-form label {
-    display: flex;
-    flex-direction: row;
+.checkout-form .form-grid > label {
+    display: grid;
+    grid-template-rows: auto auto;
     gap: 0.8rem;
+    align-content: start;
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: -0.02rem;
@@ -1462,7 +1467,7 @@ body[data-page='checkout'] {
 }
 
 .summary .btn-primary {
-    max-width: 28.4rem;
+    /* max-width: 28.4rem; */
     width: 100%;
 }
 
