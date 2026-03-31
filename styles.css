@@ -2120,6 +2120,17 @@ body[data-page='checkout'] {
 }
 
 @media screen and (max-width: 550px) {
+    .cart-modal {
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        width: 100dvw;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        top: 0;
+    }
+
     .hero {
         height: 60rem;
     }

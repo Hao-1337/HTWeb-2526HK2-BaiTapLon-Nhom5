@@ -15,6 +15,184 @@
     <main data-page-content></main>
     <div data-extra></div>
     <div data-footer></div>
+    <template id="site-header-template">
+      <header class="site-header" data-home="false" data-scrolled="false">
+        <div class="container header-inner">
+          <button class="menu-toggle" data-menu-toggle aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+          <a href="./index.html" class="logo-link"><img src="./assets/shared/desktop/logo.svg" alt="audiophile" class="logo" /></a>
+          <nav>
+            <a data-page-link="home" href="./index.html">Home</a>
+            <a data-page-link="headphones" href="./headphones.html">Headphones</a>
+            <a data-page-link="speakers" href="./speakers.html">Speakers</a>
+            <a data-page-link="earphones" href="./earphones.html">Earphones</a>
+          </nav>
+          <button class="cart-open" data-cart-open data-has-items="false" aria-label="Open cart">
+            <img src="./assets/shared/desktop/icon-cart.svg" alt="" />
+            <span data-cart-count>0</span>
+          </button>
+        </div>
+        <div class="mobile-nav" data-mobile-nav hidden></div>
+      </header>
+    </template>
+    <template id="category-nav-template">
+      <section class="category-nav selection-animation">
+        <a class="category-card" href="./headphones.html">
+          <img src="./assets/shared/desktop/image-headphones.png" alt="headphones" />
+          <h3>Headphones</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+        <a class="category-card" href="./speakers.html">
+          <img src="./assets/shared/desktop/image-speakers.png" alt="speakers" />
+          <h3>Speakers</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+        <a class="category-card" href="./earphones.html">
+          <img src="./assets/shared/desktop/image-earphones.png" alt="earphones" />
+          <h3>Earphones</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+      </section>
+    </template>
+    <template id="banner-template">
+      <section class="banner container">
+        <div class="banner-copy">
+          <h2>Bringing you the <span>best</span> audio gear</h2>
+          <p>
+            Located at the heart of New York City, Audiophile is the premier store for high end
+            headphones, earphones, speakers, and audio accessories. We have a large showroom and
+            luxury demonstration rooms available for you to browse and experience a wide range of our
+            products.
+          </p>
+        </div>
+        <picture>
+          <source media="(max-width: 768px)" srcset="/assets/shared/mobile/image-best-gear.jpg" />
+          <source media="(max-width: 1024px)" srcset="/assets/shared/tablet/image-best-gear.jpg" />
+          <img src="./assets/shared/desktop/image-best-gear.jpg" alt="best gear" data-aos="flip-right" data-aos-duration="800" data-aos-delay="100" />
+        </picture>
+      </section>
+    </template>
+    <template id="footer-template">
+      <footer class="footer">
+        <div class="container footer-inner">
+          <div class="footer-top">
+            <img src="./assets/shared/desktop/logo.svg" alt="audiophile" class="logo" />
+            <nav>
+              <a href="./index.html">Home</a>
+              <a href="./headphones.html">Headphones</a>
+              <a href="./speakers.html">Speakers</a>
+              <a href="./earphones.html">Earphones</a>
+            </nav>
+          </div>
+          <p class="footer-info">
+            Audiophile is an all in one stop to fulfill your audio needs. We are a small team of
+            music lovers and sound specialists who are devoted to helping you get the most out of
+            personal audio. Come and visit our demo facility. We are open 7 days a week.
+          </p>
+          <p class="footer-sign">Designed by Nhóm 5 <a class="footer-link" href="https://github.com/Hao-1337/HTWeb-2526HK2-BaiTapLon-Nhom5" alt="View source code here">(view source code)</a></p>
+          <div class="footer-bottom">
+            <p class="footer-sign">Copyright 2026. All Rights Reserved</p>
+            <div class="footer-socials">
+              <a href="#" aria-label="facebook"><img src="./assets/shared/desktop/icon-facebook.svg" alt="" /></a>
+              <a href="#" aria-label="twitter"><img src="./assets/shared/desktop/icon-twitter.svg" alt="" /></a>
+              <a href="#" aria-label="instagram"><img src="./assets/shared/desktop/icon-instagram.svg" alt="" /></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </template>
+    <template id="cart-modal-template">
+      <div class="cart-modal" data-cart-modal aria-hidden="true" hidden>
+        <div class="cart-panel" data-cart-panel role="dialog" aria-modal="true" aria-label="Cart dialog">
+          <div class="cart-top">
+            <h3 data-cart-title>Cart (0)</h3>
+            <button data-cart-clear>Remove all</button>
+          </div>
+          <div data-cart-items></div>
+          <div class="cart-total">
+            <span>Total</span>
+            <strong data-cart-total>$ 0</strong>
+          </div>
+          <div class="cart-actions" data-cart-checkout-actions>
+            <a class="btn btn-primary" data-cart-checkout href="./checkout.html"><span>Checkout</span></a>
+            <button class="btn btn-ghost" data-cart-close><span>Close</span></button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template id="cart-empty-template">
+      <div class="cart-empty">
+        <iframe
+          title="cart empty"
+          src="https://giphy.com/embed/nKERd2uhn8hhe"
+          width="180"
+          height="180"
+          style="pointer-events:none;border:0;"
+        ></iframe>
+      </div>
+    </template>
+    <template id="home-page-template">
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <p class="overline" data-aos="fade-down" data-aos-duration="500">New Product</p>
+            <h1 data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">XX99 Mark II Headphones</h1>
+            <p data-aos="zoom-in-out" data-aos-duration="700" data-aos-delay="900">Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.</p>
+            <a class="btn btn-primary" href="./product.html?id=xx99-mark-ii" data-aos="fade" data-aos-delay="900"><span>See Product</span></a>
+          </div>
+          <div class="hero-img" role="img" aria-label="XX99 Mark II Headphones"></div>
+        </div>
+      </section>
+
+      <section class="category-nav selection-animation container">
+        <a class="category-card" href="./headphones.html">
+          <img src="./assets/shared/desktop/image-headphones.png" alt="headphones" />
+          <h3>Headphones</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+        <a class="category-card" href="./speakers.html">
+          <img src="./assets/shared/desktop/image-speakers.png" alt="speakers" />
+          <h3>Speakers</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+        <a class="category-card" href="./earphones.html">
+          <img src="./assets/shared/desktop/image-earphones.png" alt="earphones" />
+          <h3>Earphones</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+      </section>
+
+      <section class="container home-highlights">
+        <div class="home-highlights-wrapper">
+          <article class="highlight zx9">
+            <span class="zx9-img" role="img" aria-label="ZX9 speaker" data-aos="fade-up" data-aos-duration="1000"></span>
+            <div>
+              <h2>ZX9 Speaker</h2>
+              <p>Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.</p>
+              <a class="btn btn-dark" href="./product.html?id=zx9"><span>See Product</span></a>
+            </div>
+          </article>
+
+          <article class="highlight zx7" data-aos="zoom-in-out" data-aos-duration="700">
+            <h3>ZX7 Speaker</h3>
+            <a class="btn btn-outline" href="./product.html?id=zx7"><span>See Product</span></a>
+          </article>
+
+          <article class="highlight yx1">
+            <picture>
+              <source media="(max-width: 550px)" srcset="./assets/home/mobile/image-earphones-yx1.jpg">
+              <source media="(max-width: 768px)" srcset="./assets/home/tablet/image-earphones-yx1.jpg">
+              <img class="yx1-img" src="./assets/home/desktop/image-earphones-yx1.jpg" alt="YX1 earphones product image" data-aos="flip-left" data-aos-duration="800" data-aos-delay="100" />
+            </picture>
+            <div>
+              <h3>YX1 Earphones</h3>
+              <a class="btn btn-outline" href="./product.html?id=yx1"><span>See Product</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </template>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script type="module" src="./js/app.js"></script>
   </body>

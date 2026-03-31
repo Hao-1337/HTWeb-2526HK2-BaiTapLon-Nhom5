@@ -6,81 +6,50 @@ export function formatPrice(price) {
   return `$ ${currency.format(price)}`;
 }
 
-export function categoryNavMarkup(options = {}) {
+function getTemplate(templateId) {
+  const template = document.getElementById(templateId);
+  return template instanceof HTMLTemplateElement ? template : null;
+}
+
+export function cloneTemplateContent(templateId) {
+  const template = getTemplate(templateId);
+  return template ? template.content.cloneNode(true) : document.createDocumentFragment();
+}
+
+function cloneTemplateElement(templateId) {
+  const fragment = cloneTemplateContent(templateId);
+  return fragment.firstElementChild ?? null;
+}
+
+export function createCategoryNavElement(options = {}) {
   const { withContainer = true, extraClass = "" } = options;
-  const wrapperClass = `${withContainer ? "container" : ""} ${extraClass}`.trim();
-  return `
-    <section class="category-nav selection-animation ${wrapperClass}">
-      <a class="category-card" href="./headphones.html">
-        <img src="/assets/shared/desktop/image-headphones.png" alt="headphones" />
-        <h3>Headphones</h3>
-        <span>Shop <img src="/assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
-      </a>
-      <a class="category-card" href="./speakers.html">
-        <img src="/assets/shared/desktop/image-speakers.png" alt="speakers" />
-        <h3>Speakers</h3>
-        <span>Shop <img src="/assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
-      </a>
-      <a class="category-card" href="./earphones.html">
-        <img src="/assets/shared/desktop/image-earphones.png" alt="earphones" />
-        <h3>Earphones</h3>
-        <span>Shop <img src="/assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
-      </a>
-    </section>
-  `;
+  const categoryNav = cloneTemplateElement("category-nav-template");
+  if (!categoryNav) {
+    return null;
+  }
+
+  categoryNav.classList.toggle("container", withContainer);
+  extraClass
+    .split(/\s+/)
+    .filter(Boolean)
+    .forEach((className) => categoryNav.classList.add(className));
+
+  return categoryNav;
+}
+
+export function categoryNavMarkup(options = {}) {
+  const categoryNav = createCategoryNavElement(options);
+  return categoryNav ? categoryNav.outerHTML : "";
 }
 
 export function bannerMarkup() {
-  return `
-    <section class="banner container">
-      <div class="banner-copy">
-        <h2>Bringing you the <span>best</span> audio gear</h2>
-        <p>
-          Located at the heart of New York City, Audiophile is the premier store for high end
-          headphones, earphones, speakers, and audio accessories. We have a large showroom and
-          luxury demonstration rooms available for you to browse and experience a wide range of our
-          products.
-        </p>
-      </div>
-      <picture>
-        <source media="(max-width: 768px)" srcset="/assets/shared/mobile/image-best-gear.jpg" />
-        <source media="(max-width: 1024px)" srcset="/assets/shared/tablet/image-best-gear.jpg" />
-        <img src="/assets/shared/desktop/image-best-gear.jpg" alt="best gear" data-aos="flip-right" data-aos-duration="800" data-aos-delay="100" />
-      </picture>
-    </section>
-  `;
+  const banner = cloneTemplateElement("banner-template");
+  return banner ? banner.outerHTML : "";
 }
 
 export function footerMarkup() {
-  return `
-    <footer class="footer">
-      <div class="container footer-inner">
-        <div class="footer-top">
-          <img src="/assets/shared/desktop/logo.svg" alt="audiophile" class="logo" />
-          <nav>
-            <a href="./index.html">Home</a>
-            <a href="./headphones.html">Headphones</a>
-            <a href="./speakers.html">Speakers</a>
-            <a href="./earphones.html">Earphones</a>
-          </nav>
-        </div>
-        <p class="footer-info">
-          Audiophile is an all in one stop to fulfill your audio needs. We are a small team of
-          music lovers and sound specialists who are devoted to helping you get the most out of
-          personal audio. Come and visit our demo facility. We are open 7 days a week.
-        </p>
-        <p class="footer-sign">Designed by Nhóm 5 <a class="footer-link" href="https://github.com/Hao-1337/HTWeb-2526HK2-BaiTapLon-Nhom5" alt="View source code here">(view source code)</a></p>
-        <div class="footer-bottom">
-          <p class="footer-sign">Copyright 2026. All Rights Reserved</p>
-          <div class="footer-socials">
-            <a href="#" aria-label="facebook"><img src="/assets/shared/desktop/icon-facebook.svg" alt="" /></a>
-            <a href="#" aria-label="twitter"><img src="/assets/shared/desktop/icon-twitter.svg" alt="" /></a>
-            <a href="#" aria-label="instagram"><img src="/assets/shared/desktop/icon-instagram.svg" alt="" /></a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  `;
+  const footer = cloneTemplateElement("footer-template");
+  return footer ? footer.outerHTML : "";
 }
   
 let modalLockCount = 0;
@@ -170,6 +139,10 @@ export function wireCart() {
   const openBtn = document.querySelector("[data-cart-open]");
   const clearBtn = document.querySelector("[data-cart-clear]");
 
+  if (!modal || !panel || !openBtn || !clearBtn) {
+    return;
+  }
+
   const modalController = createModalController({
     modal,
     panel,
@@ -238,23 +211,17 @@ export function renderCartItems() {
   }
 
   if (!state.cartItems.length) {
-    list.innerHTML = `
-      <div class="cart-empty">
-        <iframe
-          title="cart empty"
-          src="https://giphy.com/embed/nKERd2uhn8hhe"
-          width="180"
-          height="180"
-          style="pointer-events:none;border:0;"
-        ></iframe>
-      </div>
-    `;
+    const emptyState = cloneTemplateElement("cart-empty-template");
+    list.replaceChildren();
+    if (emptyState) {
+      list.append(emptyState);
+    }
   } else {
     list.innerHTML = state.cartItems
       .map(
         (item) => `
           <article class="cart-item">
-            <img src="/assets/${item.cartImg}" alt="${item.short}" />
+            <img src="./assets/${item.cartImg}" alt="${item.short}" />
             <div>
               <h4>${item.short}</h4>
               <p>${formatPrice(item.price)}</p>
@@ -295,53 +262,45 @@ export function renderLayout(activePath) {
   const extraRoot = document.querySelector("[data-extra]");
   const isHomePage = activePath === "home";
 
-  headerRoot.innerHTML = `
-    <header class="site-header" data-home="${isHomePage ? "true" : "false"}" data-scrolled="false">
-      <div class="container header-inner">
-        <button class="menu-toggle" data-menu-toggle aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-        <a href="./index.html" class="logo-link"><img src="/assets/shared/desktop/logo.svg" alt="audiophile" class="logo" /></a>
-        <nav>
-          <a ${activePath === "home" ? "data-active='true'" : ""} href="./index.html">Home</a>
-          <a ${activePath === "headphones" ? "data-active='true'" : ""} href="./headphones.html">Headphones</a>
-          <a ${activePath === "speakers" ? "data-active='true'" : ""} href="./speakers.html">Speakers</a>
-          <a ${activePath === "earphones" ? "data-active='true'" : ""} href="./earphones.html">Earphones</a>
-        </nav>
-        <button class="cart-open" data-cart-open data-has-items="false" aria-label="Open cart">
-          <img src="/assets/shared/desktop/icon-cart.svg" alt="" />
-          <span data-cart-count>0</span>
-        </button>
-      </div>
-      <div class="mobile-nav" data-mobile-nav hidden>
-        ${categoryNavMarkup({ withContainer: false, extraClass: "mobile-nav-cards" })}
-      </div>
-    </header>
-
-    <div class="cart-modal" data-cart-modal aria-hidden="true" hidden>
-      <div class="cart-panel" data-cart-panel role="dialog" aria-modal="true" aria-label="Cart dialog">
-        <div class="cart-top">
-          <h3 data-cart-title>Cart (0)</h3>
-          <button data-cart-clear>Remove all</button>
-        </div>
-        <div data-cart-items></div>
-        <div class="cart-total">
-          <span>Total</span>
-          <strong data-cart-total>$ 0</strong>
-        </div>
-        <div class="cart-actions" data-cart-checkout-actions>
-          <a class="btn btn-primary" data-cart-checkout href="./checkout.html"><span>Checkout</span></a>
-          <button class="btn btn-ghost" data-cart-close><span>Close</span></button>
-        </div>
-      </div>
-    </div>
-  `;
-
-  if (extraRoot) {
-    extraRoot.innerHTML = (activePath !== "home" ? categoryNavMarkup({ withContainer: true }) : "") + bannerMarkup();
+  if (!headerRoot || !footerRoot) {
+    return;
   }
 
-  footerRoot.innerHTML = footerMarkup();
+  const header = cloneTemplateElement("site-header-template");
+  const cartModal = cloneTemplateElement("cart-modal-template");
+  if (header) {
+    header.setAttribute("data-home", isHomePage ? "true" : "false");
+    const activeLink = header.querySelector(`[data-page-link="${activePath}"]`);
+    if (activeLink) {
+      activeLink.setAttribute("data-active", "true");
+    }
+
+    const mobileNav = header.querySelector("[data-mobile-nav]");
+    const mobileNavCards = createCategoryNavElement({ withContainer: false, extraClass: "mobile-nav-cards" });
+    if (mobileNav && mobileNavCards) {
+      mobileNav.append(mobileNavCards);
+    }
+  }
+  headerRoot.replaceChildren(...[header, cartModal].filter(Boolean));
+
+  if (extraRoot) {
+    const extraSections = [];
+    if (activePath !== "home") {
+      const categoryNav = createCategoryNavElement({ withContainer: true });
+      if (categoryNav) {
+        extraSections.push(categoryNav);
+      }
+    }
+
+    const banner = cloneTemplateElement("banner-template");
+    if (banner) {
+      extraSections.push(banner);
+    }
+    extraRoot.replaceChildren(...extraSections);
+  }
+
+  const footer = cloneTemplateElement("footer-template");
+  footerRoot.replaceChildren(...[footer].filter(Boolean));
 }
 
 export function wireHeader(activePath) {

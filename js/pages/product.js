@@ -20,7 +20,7 @@ export async function initProductPage() {
       <button class="go-back" type="button" data-go-back>< Go Back</button>
       <div class="product-hero">
         <div class="product-img-wrap">
-          <img src="/assets/${item.productIMG}" alt="${item.product}" />
+          <img src="./assets/${item.productIMG}" alt="${item.product}" />
         </div>
         <div>
           ${item.feature ? `<p class="overline">${item.feature}</p>` : ""}
@@ -54,7 +54,7 @@ export async function initProductPage() {
 
       <div class="gallery">
         ${item.gallery
-          .map(([url, alt]) => `<img src="/assets/${url}" alt="${alt}" />`)
+          .map(([url, alt]) => `<img src="./assets/${url}" alt="${alt}" />`)
           .join("")}
       </div>
 
@@ -65,7 +65,7 @@ export async function initProductPage() {
             .map(
               (pref) => `
                 <article class="preference-card" data-aos="flip-left">
-                  <img src="/assets/${pref.url}" alt="${pref.product}" />
+                  <img src="./assets/${pref.url}" alt="${pref.product}" />
                   <h4>${pref.product}</h4>
                   <a class="btn btn-primary" href="./product.html?id=${pref.link.replace("/product_detail/", "")}"><span>See Product</span></a>
                 </article>

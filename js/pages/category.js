@@ -13,7 +13,7 @@ export async function initCategoryPage(category) {
           (item, index) => `
             <article class="category-item ${index % 2 ? "reverse" : ""}" data-aos="fade">
               <div class="category-img-wrap">
-                <img src="/assets/${item.src}" alt="${item.product}" />
+                <img src="./assets/${item.src}" alt="${item.product}" />
               </div>
               <div>
                 ${item.feature ? `<p class="overline">${item.feature}</p>` : ""}

@@ -14,6 +14,215 @@
     <div data-header></div>
     <main data-page-content></main>
     <div data-footer></div>
+    <template id="site-header-template">
+      <header class="site-header" data-home="false" data-scrolled="false">
+        <div class="container header-inner">
+          <button class="menu-toggle" data-menu-toggle aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+          <a href="./index.html" class="logo-link"><img src="./assets/shared/desktop/logo.svg" alt="audiophile" class="logo" /></a>
+          <nav>
+            <a data-page-link="home" href="./index.html">Home</a>
+            <a data-page-link="headphones" href="./headphones.html">Headphones</a>
+            <a data-page-link="speakers" href="./speakers.html">Speakers</a>
+            <a data-page-link="earphones" href="./earphones.html">Earphones</a>
+          </nav>
+          <button class="cart-open" data-cart-open data-has-items="false" aria-label="Open cart">
+            <img src="./assets/shared/desktop/icon-cart.svg" alt="" />
+            <span data-cart-count>0</span>
+          </button>
+        </div>
+        <div class="mobile-nav" data-mobile-nav hidden></div>
+      </header>
+    </template>
+    <template id="category-nav-template">
+      <section class="category-nav selection-animation">
+        <a class="category-card" href="./headphones.html">
+          <img src="./assets/shared/desktop/image-headphones.png" alt="headphones" />
+          <h3>Headphones</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+        <a class="category-card" href="./speakers.html">
+          <img src="./assets/shared/desktop/image-speakers.png" alt="speakers" />
+          <h3>Speakers</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+        <a class="category-card" href="./earphones.html">
+          <img src="./assets/shared/desktop/image-earphones.png" alt="earphones" />
+          <h3>Earphones</h3>
+          <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+        </a>
+      </section>
+    </template>
+    <template id="footer-template">
+      <footer class="footer">
+        <div class="container footer-inner">
+          <div class="footer-top">
+            <img src="./assets/shared/desktop/logo.svg" alt="audiophile" class="logo" />
+            <nav>
+              <a href="./index.html">Home</a>
+              <a href="./headphones.html">Headphones</a>
+              <a href="./speakers.html">Speakers</a>
+              <a href="./earphones.html">Earphones</a>
+            </nav>
+          </div>
+          <p class="footer-info">
+            Audiophile is an all in one stop to fulfill your audio needs. We are a small team of
+            music lovers and sound specialists who are devoted to helping you get the most out of
+            personal audio. Come and visit our demo facility. We are open 7 days a week.
+          </p>
+          <p class="footer-sign">Designed by Nhóm 5 <a class="footer-link" href="https://github.com/Hao-1337/HTWeb-2526HK2-BaiTapLon-Nhom5" alt="View source code here">(view source code)</a></p>
+          <div class="footer-bottom">
+            <p class="footer-sign">Copyright 2026. All Rights Reserved</p>
+            <div class="footer-socials">
+              <a href="#" aria-label="facebook"><img src="./assets/shared/desktop/icon-facebook.svg" alt="" /></a>
+              <a href="#" aria-label="twitter"><img src="./assets/shared/desktop/icon-twitter.svg" alt="" /></a>
+              <a href="#" aria-label="instagram"><img src="./assets/shared/desktop/icon-instagram.svg" alt="" /></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </template>
+    <template id="cart-modal-template">
+      <div class="cart-modal" data-cart-modal aria-hidden="true" hidden>
+        <div class="cart-panel" data-cart-panel role="dialog" aria-modal="true" aria-label="Cart dialog">
+          <div class="cart-top">
+            <h3 data-cart-title>Cart (0)</h3>
+            <button data-cart-clear>Remove all</button>
+          </div>
+          <div data-cart-items></div>
+          <div class="cart-total">
+            <span>Total</span>
+            <strong data-cart-total>$ 0</strong>
+          </div>
+          <div class="cart-actions" data-cart-checkout-actions>
+            <a class="btn btn-primary" data-cart-checkout href="./checkout.html"><span>Checkout</span></a>
+            <button class="btn btn-ghost" data-cart-close><span>Close</span></button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template id="cart-empty-template">
+      <div class="cart-empty">
+        <iframe
+          title="cart empty"
+          src="https://giphy.com/embed/nKERd2uhn8hhe"
+          width="180"
+          height="180"
+          style="pointer-events:none;border:0;"
+        ></iframe>
+      </div>
+    </template>
+    <template id="checkout-empty-template">
+      <section class="container checkout-layout checkout-empty">
+        <button class="go-back" type="button" data-go-back>< Go Back</button>
+        <h4>No items in your cart. Please add items to proceed to checkout.</h4>
+      </section>
+    </template>
+    <template id="checkout-page-template">
+      <section class="container checkout-layout">
+        <button class="go-back" type="button" data-go-back>< Go Back</button>
+        <form class="checkout-form" data-checkout-form id="checkout-form" novalidate>
+          <h1>Checkout</h1>
+          <h3 class="form-group-title">Billing Details</h3>
+          <div class="form-grid">
+            <label>
+              <span class="label-row"><span>Name</span><span class="form-error" data-err="name"></span></span>
+              <input name="name" required autocomplete="name" placeholder="Alexei Ward" />
+            </label>
+            <label>
+              <span class="label-row"><span>Email Address</span><span class="form-error" data-err="email"></span></span>
+              <input name="email" type="email" required autocomplete="email" inputmode="email" placeholder="alexei@mail.com" />
+            </label>
+            <label>
+              <span class="label-row"><span>Phone Number</span><span class="form-error" data-err="phone"></span></span>
+              <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="+1 202-555-0136" />
+            </label>
+          </div>
+
+          <h3 class="form-group-title">Shipping Info</h3>
+          <div class="form-grid">
+            <label class="span-2">
+              <span class="label-row"><span>Address</span><span class="form-error" data-err="address"></span></span>
+              <input name="address" required autocomplete="street-address" placeholder="1137 Williams Avenue" />
+            </label>
+            <label>
+              <span class="label-row"><span>Zip Code</span><span class="form-error" data-err="zip"></span></span>
+              <input name="zip" required autocomplete="postal-code" placeholder="10001" />
+            </label>
+            <label>
+              <span class="label-row"><span>City</span><span class="form-error" data-err="city"></span></span>
+              <input name="city" required autocomplete="address-level2" placeholder="New York" />
+            </label>
+            <label>
+              <span class="label-row"><span>Country</span><span class="form-error" data-err="country"></span></span>
+              <input name="country" required autocomplete="country-name" placeholder="United States" />
+            </label>
+          </div>
+
+          <h3 class="form-group-title">Payment Details</h3>
+          <div class="payment-grid">
+            <p class="payment-method-label">Payment Method</p>
+            <div class="payment-options">
+              <label class="radio-option">
+                <input type="radio" name="payment" value="e-money" checked data-payment-radio />
+                e-Money
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="payment" value="cash" data-payment-radio />
+                Cash on Delivery
+              </label>
+            </div>
+          </div>
+
+          <div class="payment-extra" data-payment-extra>
+            <div class="form-grid">
+              <label>
+                <span class="label-row"><span>e-Money Number</span><span class="form-error" data-err="eMoneyNum"></span></span>
+                <input name="eMoneyNum" data-emoney-num inputmode="numeric" maxlength="9" placeholder="238521993" />
+              </label>
+              <label>
+                <span class="label-row"><span>e-Money PIN</span><span class="form-error" data-err="eMoneyPin"></span></span>
+                <input name="eMoneyPin" data-emoney-pin inputmode="numeric" maxlength="4" placeholder="6891" />
+              </label>
+            </div>
+          </div>
+
+          <div class="cash-extra" data-cash-extra hidden>
+            <p>
+              The Cash on Delivery option enables you to pay in cash when our delivery courier arrives
+              at your residence. Just make sure your address is correct so that your order will not be cancelled.
+            </p>
+          </div>
+        </form>
+
+        <aside class="summary">
+          <h2>Summary</h2>
+          <div class="summary-items" data-summary-items></div>
+          <div class="summary-line"><span>Total</span><strong data-summary-total>$ 0</strong></div>
+          <div class="summary-line"><span>Shipping</span><strong data-summary-shipping>$ 0</strong></div>
+          <div class="summary-line"><span>VAT (included)</span><strong data-summary-vat>$ 0</strong></div>
+          <div class="summary-line grand"><span>Grand total</span><strong data-summary-grand>$ 0</strong></div>
+          <button type="submit" form="checkout-form" class="btn btn-primary" data-place-order><span>Continue &amp; Pay</span></button>
+        </aside>
+      </section>
+
+      <div class="success-modal" data-success hidden>
+        <div class="success-panel" data-success-panel role="dialog" aria-modal="true" aria-label="Order success">
+          <div class="success-icon">&#10003;</div>
+          <h3>Thank you<br>for your order</h3>
+          <p>You will receive an email confirmation shortly.</p>
+          <div class="success-info">
+            <ul class="success-items" data-success-items></ul>
+            <div class="success-total">
+              <p class="success-total-label">Grand Total</p>
+              <span class="success-total-amount" data-success-grand-total>$ 0</span>
+            </div>
+          </div>
+          <a class="btn btn-dark btn-flex btn-grow" data-success-home href="./index.html"><span>Back to Home</span></a>
+        </div>
+      </div>
+    </template>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script type="module" src="./js/app.js"></script>
   </body>
