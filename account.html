@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Audiophile - My Account</title>
+        <link rel="stylesheet" href="./styles.css" />
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700&display=swap" rel="stylesheet" />
+    </head>
+    <body data-page="account">
+        <div data-header></div>
+        <main data-page-content></main>
+        <div data-footer></div>
+        <template id="site-header-template">
+            <header class="site-header" data-home="false" data-scrolled="false">
+                <div class="container header-inner">
+                    <button class="menu-toggle" data-menu-toggle aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+                    <a href="./index.html" class="logo-link"><img src="./assets/shared/desktop/logo.svg" alt="audiophile" class="logo" /></a>
+                    <nav>
+                        <a data-page-link="home" href="./index.html">Home</a>
+                        <a data-page-link="headphones" href="./headphones.html">Headphones</a>
+                        <a data-page-link="speakers" href="./speakers.html">Speakers</a>
+                        <a data-page-link="earphones" href="./earphones.html">Earphones</a>
+                    </nav>
+                    <div class="header-actions">
+                        <a href="./account.html" class="account-link" data-account-link data-logged-in="false" aria-label="My Account">
+                            <img src="./assets/shared/desktop/icon-account.svg" alt="" />
+                        </a>
+                        <button class="cart-open" data-cart-open data-has-items="false" aria-label="Open cart">
+                            <img src="./assets/shared/desktop/icon-cart.svg" alt="" />
+                            <span data-cart-count>0</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mobile-nav" data-mobile-nav hidden></div>
+            </header>
+        </template>
+        <template id="category-nav-template">
+            <section class="category-nav selection-animation">
+                <a class="category-card" href="./headphones.html">
+                    <img src="./assets/shared/desktop/image-headphones.png" alt="headphones" />
+                    <h3>Headphones</h3>
+                    <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+                </a>
+                <a class="category-card" href="./speakers.html">
+                    <img src="./assets/shared/desktop/image-speakers.png" alt="speakers" />
+                    <h3>Speakers</h3>
+                    <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+                </a>
+                <a class="category-card" href="./earphones.html">
+                    <img src="./assets/shared/desktop/image-earphones.png" alt="earphones" />
+                    <h3>Earphones</h3>
+                    <span>Shop <img src="./assets/shared/desktop/icon-arrow-right.svg" alt="" /></span>
+                </a>
+            </section>
+        </template>
+        <template id="footer-template">
+            <footer class="footer">
+                <div class="container footer-inner">
+                    <div class="footer-top">
+                        <img src="./assets/shared/desktop/logo.svg" alt="audiophile" class="logo" />
+                        <nav>
+                            <a href="./index.html">Home</a>
+                            <a href="./headphones.html">Headphones</a>
+                            <a href="./speakers.html">Speakers</a>
+                            <a href="./earphones.html">Earphones</a>
+                        </nav>
+                    </div>
+                    <p class="footer-info">
+                        Audiophile is an all in one stop to fulfill your audio needs. We are a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility. We are open
+                        7 days a week.
+                    </p>
+                    <p class="footer-sign">Designed by Nhóm 5 <a class="footer-link" href="https://github.com/Hao-1337/HTWeb-2526HK2-BaiTapLon-Nhom5" alt="View source code here">(view source code)</a></p>
+                    <div class="footer-bottom">
+                        <p class="footer-sign">Copyright 2026. All Rights Reserved</p>
+                        <div class="footer-socials">
+                            <a href="#" aria-label="facebook"><img src="./assets/shared/desktop/icon-facebook.svg" alt="" /></a>
+                            <a href="#" aria-label="twitter"><img src="./assets/shared/desktop/icon-twitter.svg" alt="" /></a>
+                            <a href="#" aria-label="instagram"><img src="./assets/shared/desktop/icon-instagram.svg" alt="" /></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </template>
+        <template id="cart-modal-template">
+            <div class="cart-modal" data-cart-modal aria-hidden="true" hidden>
+                <div class="cart-panel" data-cart-panel role="dialog" aria-modal="true" aria-label="Cart dialog">
+                    <div class="cart-top">
+                        <h3 data-cart-title>Cart (0)</h3>
+                        <button data-cart-clear>Remove all</button>
+                    </div>
+                    <div data-cart-items></div>
+                    <div class="cart-total">
+                        <span>Total</span>
+                        <strong data-cart-total>$ 0</strong>
+                    </div>
+                    <div class="cart-actions" data-cart-checkout-actions>
+                        <a class="btn btn-primary" data-cart-checkout href="./checkout.html"><span>Checkout</span></a>
+                        <button class="btn btn-ghost" data-cart-close><span>Close</span></button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template id="cart-empty-template">
+            <div class="cart-empty">
+                <iframe title="cart empty" src="https://giphy.com/embed/nKERd2uhn8hhe" width="180" height="180" style="pointer-events: none; border: 0"></iframe>
+            </div>
+        </template>
+        <template id="account-login-template">
+            <section class="container account-layout">
+                <div class="account-login-card">
+                    <h1>Sign In</h1>
+                    <p class="account-demo-hint">New here? Just enter any valid email and a password &mdash; your account will be created automatically.</p>
+                    <form class="account-form" data-login-form novalidate>
+                        <label>
+                            <span class="label-row"><span>Email Address</span><span class="form-error" data-err="email"></span></span>
+                            <input name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required />
+                        </label>
+                        <label>
+                            <span class="label-row"><span>Password</span><span class="form-error" data-err="password"></span></span>
+                            <input name="password" type="password" autocomplete="current-password" placeholder="Min. 6 characters" required />
+                        </label>
+                        <p class="account-login-error" data-login-error aria-live="polite"></p>
+                        <button type="submit" class="btn btn-primary btn-grow"><span>Continue</span></button>
+                    </form>
+                </div>
+            </section>
+        </template>
+        <template id="account-dashboard-template">
+            <section class="container account-layout">
+                <p class="account-welcome-banner" data-welcome-banner hidden></p>
+                <div class="account-header">
+                    <div class="account-user-info">
+                        <img class="account-avatar" data-account-avatar src="./assets/dbtheme.jpg" alt="Profile picture" />
+                        <div>
+                            <h1 data-account-name></h1>
+                            <p data-account-email class="account-email"></p>
+                        </div>
+                    </div>
+                    <button class="btn btn-ghost account-logout" data-logout><span>Sign Out</span></button>
+                </div>
+                <div class="account-orders">
+                    <div class="orders-tabs" role="tablist">
+                        <button class="orders-tab" data-tab="all" data-active="true" role="tab" aria-selected="true">All Orders</button>
+                        <button class="orders-tab" data-tab="awaiting" role="tab">Awaiting Delivery</button>
+                        <button class="orders-tab" data-tab="complete" role="tab">Completed</button>
+                    </div>
+                    <div data-orders-list class="orders-list"></div>
+                </div>
+            </section>
+        </template>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script type="module" src="./js/app.js"></script>
+    </body>
+</html>

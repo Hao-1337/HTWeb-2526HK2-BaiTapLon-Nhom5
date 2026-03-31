@@ -27,10 +27,15 @@
             <a data-page-link="speakers" href="./speakers.html">Speakers</a>
             <a data-page-link="earphones" href="./earphones.html">Earphones</a>
           </nav>
-          <button class="cart-open" data-cart-open data-has-items="false" aria-label="Open cart">
-            <img src="./assets/shared/desktop/icon-cart.svg" alt="" />
-            <span data-cart-count>0</span>
-          </button>
+          <div class="header-actions">
+            <a href="./account.html" class="account-link" data-account-link data-logged-in="false" aria-label="My Account">
+              <img src="./assets/shared/desktop/icon-account.svg" alt="" />
+            </a>
+            <button class="cart-open" data-cart-open data-has-items="false" aria-label="Open cart">
+              <img src="./assets/shared/desktop/icon-cart.svg" alt="" />
+              <span data-cart-count>0</span>
+            </button>
+          </div>
         </div>
         <div class="mobile-nav" data-mobile-nav hidden></div>
       </header>
@@ -112,6 +117,16 @@
           style="pointer-events:none;border:0;"
         ></iframe>
       </div>
+    </template>
+    <template id="checkout-login-required-template">
+      <section class="container checkout-layout checkout-empty">
+        <button class="go-back" type="button" data-go-back>< Go Back</button>
+        <div class="checkout-login-prompt">
+          <h4>Sign in to continue</h4>
+          <p>You need to be signed in before placing an order.</p>
+          <button class="btn btn-primary" data-checkout-login><span>Sign In</span></button>
+        </div>
+      </section>
     </template>
     <template id="checkout-empty-template">
       <section class="container checkout-layout checkout-empty">

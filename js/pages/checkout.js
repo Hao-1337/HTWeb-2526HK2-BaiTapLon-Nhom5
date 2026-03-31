@@ -1,4 +1,5 @@
 import { getState, cartTotal, clearCart } from "../store.js";
+import { getAccountSession, isLoggedIn, saveOrder, generateOrderId } from "../account-store.js";
 import {
   cloneTemplateContent,
   createCategoryNavElement,
@@ -56,6 +57,22 @@ export async function initCheckoutPage() {
     return;
   }
 
+  if (!isLoggedIn()) {
+    document.title = "Checkout - Sign In Required";
+    root.replaceChildren(cloneTemplateContent("checkout-login-required-template"));
+    const loginBtn = document.querySelector("[data-checkout-login]");
+    if (loginBtn) {
+      loginBtn.addEventListener("click", () => {
+        window.location.href = "./account.html?next=checkout";
+      });
+    }
+    const goBackButton = document.querySelector("[data-go-back]");
+    if (goBackButton) {
+      goBackButton.addEventListener("click", () => window.history.back());
+    }
+    return;
+  }
+
   const state = getState();
   const hasItems = state.cartItems.length > 0;
   const shipping = 50;
@@ -81,6 +98,12 @@ export async function initCheckoutPage() {
   }
 
   root.replaceChildren(cloneTemplateContent("checkout-page-template"));
+
+  const session = getAccountSession();
+  const emailInput = document.querySelector("[data-checkout-form] input[name='email']");
+  if (emailInput && session?.email) {
+    emailInput.value = session.email;
+  }
 
   const summaryItems = document.querySelector("[data-summary-items]");
   const summaryTotal = document.querySelector("[data-summary-total]");
@@ -273,9 +296,25 @@ export async function initCheckoutPage() {
     }
 
     const payload = Object.fromEntries(new FormData(form).entries());
-    setTimeout(() => {
-      alert(`\n${JSON.stringify(payload)}`);
-    }, 1200);
+
+    saveOrder({
+      id: generateOrderId(),
+      date: new Date().toISOString(),
+      items: state.cartItems.map((item) => ({ ...item })),
+      total: cartTotal(),
+      shipping,
+      vat,
+      grand,
+      status: "awaiting",
+      shippingAddress: {
+        name: payload.name,
+        email: payload.email,
+        address: payload.address,
+        city: payload.city,
+        zip: payload.zip,
+        country: payload.country
+      }
+    });
 
     successModalController.open();
   });

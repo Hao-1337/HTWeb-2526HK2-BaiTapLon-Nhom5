@@ -1,14 +1,29 @@
 import { loadStore } from "./store.js";
 import { renderLayout, wireCart, wireHeader } from "./render.js";
+import { isLoggedIn } from "./account-store.js";
 
 const pageName = document.body.dataset.page;
 
 window.scrollTo(0, 0);
-// window.addEventListener("load", () => requestAnimationFrame(() => document.documentElement.style.scrollSnapType = "y mandatory"));
 loadStore();
 renderLayout(pageName);
 wireHeader(pageName);
 wireCart();
+
+const accountLink = document.querySelector("[data-account-link]");
+const accountIcon = accountLink?.querySelector("img");
+if (accountLink) {
+  const loggedIn = isLoggedIn();
+  accountLink.setAttribute("data-logged-in", loggedIn ? "true" : "false");
+  if (accountIcon && loggedIn) {
+    accountIcon.src = "./assets/dbtheme.jpg";
+    accountIcon.alt = "Profile picture";
+    accountIcon.onerror = () => {
+      accountIcon.src = "./assets/shared/desktop/icon-account.svg";
+      accountIcon.alt = "Account";
+    };
+  }
+}
 
 if (pageName === "home") {
   const { initHome } = await import("./pages/home.js");
@@ -30,8 +45,11 @@ if (pageName === "checkout") {
   await initCheckoutPage();
 }
 
-// Initialize AOS animations
-// eslint-disable-next-line no-undef
+if (pageName === "account") {
+  const { initAccountPage } = await import("./pages/account.js");
+  await initAccountPage();
+}
+
 AOS.init({
   once: true
 });

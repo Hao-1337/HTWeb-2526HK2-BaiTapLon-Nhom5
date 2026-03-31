@@ -180,7 +180,7 @@ export function syncCartCount() {
   if (!badge) {
     return;
   }
-  const amount = getState().cartItems.length;
+  const amount = getState().cartItems.reduce((sum, item) => sum + item.qty, 0);
   badge.textContent = String(amount);
   if (trigger) {
     trigger.setAttribute("data-has-items", amount > 0 ? "true" : "false");
@@ -195,9 +195,10 @@ export function renderCartItems() {
   }
 
   const state = getState();
+  const totalUnits = state.cartItems.reduce((sum, item) => sum + item.qty, 0);
   const title = document.querySelector("[data-cart-title]");
   if (title) {
-    title.textContent = `Cart (${state.cartItems.length})`;
+    title.textContent = `Cart (${totalUnits})`;
   }
 
   const checkoutActions = document.querySelector("[data-cart-checkout-actions]");
@@ -206,8 +207,6 @@ export function renderCartItems() {
       ? `<a class="btn btn-primary" data-cart-checkout href="./checkout.html"><span>Checkout</span></a>
          <button class="btn btn-ghost" data-cart-close><span>Close</span></button>`
       : `<button class="btn btn-dark btn-grow" disabled><span>No items in the list</span></button>`;
-    // Tại sao nhỉ
-    // <button class="btn btn-ghost" data-cart-close><span>Close</span></button>
   }
 
   if (!state.cartItems.length) {

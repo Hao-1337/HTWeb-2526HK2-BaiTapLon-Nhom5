@@ -101,7 +101,6 @@
 html {
     font-size: min(16px, 72.5%);
     scroll-behavior: smooth;
-    /* scroll-snap-type: y proximity; */
 }
 
 *,
@@ -332,11 +331,349 @@ nav a:hover {
     opacity: 0;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.account-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+}
+
+.account-link:hover {
+    opacity: 1;
+}
+
+.account-link img {
+    width: 2.2rem;
+    height: 2.2rem;
+    filter: invert(1);
+}
+
+.account-link[data-logged-in='true'] img {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    filter: none;
+}
+
+.account-link[data-logged-in='true']::after {
+    content: "";
+    position: absolute;
+    top: -0.2rem;
+    right: -0.2rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: #4caf50;
+    border: 0.15rem solid var(--black);
+}
+
+body[data-page='account'] main {
+    padding-top: 10rem;
+}
+
+.account-layout {
+    padding-top: 4rem;
+    padding-bottom: 8rem;
+    min-height: min(75dvh, 80rem);
+    max-width: 72rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.account-login-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 4rem;
+    max-width: 44rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+}
+
+.account-login-card h1 {
+    font-size: 2.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+}
+
+.account-demo-hint {
+    font-size: 1.3rem;
+    color: var(--black-soft);
+    background: var(--gray-dark);
+    border-left: 3px solid var(--brown-dark);
+    padding: 1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.account-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--black);
+}
+
+.account-form input {
+    padding: 1.8rem 2.4rem;
+    border: 1px solid var(--gray-mid);
+    border-radius: var(--radius);
+    font-size: 1.4rem;
+    font-family: inherit;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s ease;
+}
+
+.account-form input:focus {
+    border-color: var(--brown-dark);
+}
+
+.account-form input.input-error {
+    border-color: #cd2c2c;
+}
+
+.account-login-error {
+    font-size: 1.2rem;
+    color: #cd2c2c;
+    min-height: 1.6rem;
+    font-weight: 700;
+}
+
+.account-welcome-banner {
+    background: rgba(76, 175, 80, 0.12);
+    border-left: 3px solid #4caf50;
+    color: #2e7d32;
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.account-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 3rem;
+}
+
+.account-user-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.account-avatar {
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--gray-dark);
+    border: 1px solid var(--gray-mid);
+    flex-shrink: 0;
+}
+
+.account-user-info h1 {
+    font-size: 2rem;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+}
+
+.account-email {
+    font-size: 1.3rem;
+    color: var(--black-soft);
+}
+
+.account-logout {
+    flex-shrink: 0;
+}
+
+.account-orders {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.orders-tabs {
+    display: flex;
+    gap: 0.8rem;
+    margin-left: .25rem;
+    flex-wrap: wrap;
+}
+
+.orders-tab {
+    padding: 1rem 2rem;
+    border: 1px solid var(--gray-mid);
+    border-radius: 10rem;
+    background: transparent;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    color: var(--black-soft);
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.orders-tab[data-active='true'] {
+    background: var(--brown-dark);
+    border-color: var(--brown-dark);
+    color: var(--white);
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.orders-empty {
+    color: var(--black-soft);
+    font-size: 1.4rem;
+    padding: 3rem 0;
+}
+
+.order-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.order-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    padding: 1.6rem 2.4rem;
+    background: var(--gray-dark);
+    flex-wrap: wrap;
+}
+
+.order-id {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--black);
+    flex: 1;
+}
+
+.order-date {
+    font-size: 1.2rem;
+    color: var(--black-soft);
+}
+
+.order-status {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 1.2rem;
+    border-radius: 10rem;
+    text-transform: uppercase;
+}
+
+.status-awaiting {
+    background: rgba(216, 125, 74, 0.15);
+    color: var(--brown-dark);
+}
+
+.status-complete {
+    background: rgba(76, 175, 80, 0.15);
+    color: #2e7d32;
+}
+
+.order-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2.4rem;
+    flex-wrap: wrap;
+}
+
+.order-items-preview {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+.order-items-preview img {
+    width: 6.4rem;
+    height: 6.4rem;
+    border-radius: 0.8rem;
+    object-fit: cover;
+    background: var(--gray-dark);
+}
+
+.order-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.order-item-info strong {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--black);
+}
+
+.order-item-info span {
+    font-size: 1.3rem;
+    color: var(--black-soft);
+}
+
+.order-extra-items {
+    font-size: 1.2rem;
+    color: var(--black-soft);
+    white-space: nowrap;
+}
+
+.order-total-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+}
+
+.order-total-info span {
+    font-size: 1.2rem;
+    color: var(--black-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.order-total-info strong {
+    font-size: 1.6rem;
+    color: var(--black);
+}
+
 main {
     padding-top: 10rem;
 }
 
-/* Pages with a full-height hero handle their own top spacing */
 body[data-page='home'] main,
 body[data-page='headphones'] main,
 body[data-page='earphones'] main,
@@ -957,8 +1294,6 @@ body[data-page='speakers'] main {
 .go-back {
     border: 0;
     text-decoration: underline;
-    /* border: 1px solid var(--black);
-    padding: 1rem 2rem; */
     background: transparent;
     font-size: 1.5rem;
     color: rgba(0, 0, 0, 0.7);
@@ -1064,7 +1399,6 @@ body[data-page='speakers'] main {
 }
 
 .feature-grid h3,
-/* .feature-grid h3 + p, */
 .preference h3 {
     font-size: 3.2rem;
     line-height: 3.6rem;
@@ -1467,7 +1801,6 @@ body[data-page='checkout'] {
 }
 
 .summary .btn-primary {
-    /* max-width: 28.4rem; */
     width: 100%;
 }
 
@@ -1498,6 +1831,23 @@ body[data-page='checkout'] {
     gap: 1.2rem;
     min-height: 8rem;
 }
+
+.checkout-login-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.6rem;
+}
+
+.checkout-login-prompt h4 {
+    font-size: 2rem;
+}
+
+.checkout-login-prompt p {
+    color: var(--black-soft);
+    font-size: 1.5rem;
+}
+
 
 .summary-item img {
     width: 6.4rem;
