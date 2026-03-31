@@ -66,9 +66,7 @@ export function login(email, password) {
     const accounts = getAccounts();
 
     if (accounts[normalizedEmail]) {
-        if (accounts[normalizedEmail].password !== password) {
-            return { success: false, error: "Incorrect password for this account" };
-        }
+        if (accounts[normalizedEmail].password !== password) return { success: false, error: "Incorrect password for this account" };
         if (!Array.isArray(accounts[normalizedEmail].orders) || accounts[normalizedEmail].orders.length === 0) {
             accounts[normalizedEmail].orders = [createDemoCompletedOrder(accounts[normalizedEmail].name, normalizedEmail)];
             saveAccounts(accounts);

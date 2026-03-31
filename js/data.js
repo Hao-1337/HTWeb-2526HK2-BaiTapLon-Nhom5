@@ -57,9 +57,7 @@ export const CATEGORY_ITEMS = {
 
 export async function loadProducts() {
   const response = await fetch("/data/product-data.json");
-  if (!response.ok) {
-    throw new Error("Failed to load product data");
-  }
+  if (!response.ok) throw new Error("Failed to load product data");
   return response.json();
 }
 

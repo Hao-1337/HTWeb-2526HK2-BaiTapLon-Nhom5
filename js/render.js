@@ -24,9 +24,7 @@ function cloneTemplateElement(templateId) {
 export function createCategoryNavElement(options = {}) {
   const { withContainer = true, extraClass = "" } = options;
   const categoryNav = cloneTemplateElement("category-nav-template");
-  if (!categoryNav) {
-    return null;
-  }
+  if (!categoryNav) return null;
 
   categoryNav.classList.toggle("container", withContainer);
   extraClass
@@ -56,17 +54,13 @@ let modalLockCount = 0;
 
 function lockBodyScroll() {
   modalLockCount += 1;
-  if (modalLockCount > 1) {
-    return;
-  }
+  if (modalLockCount > 1) return;
   document.body.classList.add("modal-open");
 }
 
 function unlockBodyScroll() {
   modalLockCount = Math.max(0, modalLockCount - 1);
-  if (modalLockCount > 0) {
-    return;
-  }
+  if (modalLockCount > 0) return;
   document.body.classList.remove("modal-open");
 }
 
@@ -82,9 +76,7 @@ export function createModalController({ modal, panel, trigger, onOpen, onClose }
 
   const focusFirstElement = () => {
     const focusTarget = panel.querySelector("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])");
-    if (focusTarget) {
-      focusTarget.focus();
-    }
+    if (focusTarget) focusTarget.focus();
   };
 
   const onEscape = (event) => {
@@ -99,26 +91,19 @@ export function createModalController({ modal, panel, trigger, onOpen, onClose }
       modal.hidden = false;
       modal.setAttribute("aria-hidden", "false");
       lockBodyScroll();
-      if (onOpen) {
-        onOpen();
-      }
+      if (onOpen) onOpen();
       document.addEventListener("keydown", onEscape);
       setTimeout(focusFirstElement, 0);
     },
     close: () => {
-      if (modal.hidden) {
-        return;
-      }
+      if (modal.hidden) return;
       modal.hidden = true;
       modal.setAttribute("aria-hidden", "true");
       unlockBodyScroll();
       document.removeEventListener("keydown", onEscape);
-      if (onClose) {
-        onClose();
-      }
-      if (trigger) {
-        trigger.focus();
-      } else if (lastFocused && typeof lastFocused.focus === "function") {
+      if (onClose) onClose();
+      if (trigger) trigger.focus();
+      else if (lastFocused && typeof lastFocused.focus === "function") {
         lastFocused.focus();
       }
     }
@@ -139,9 +124,7 @@ export function wireCart() {
   const openBtn = document.querySelector("[data-cart-open]");
   const clearBtn = document.querySelector("[data-cart-clear]");
 
-  if (!modal || !panel || !openBtn || !clearBtn) {
-    return;
-  }
+  if (!modal || !panel || !openBtn || !clearBtn) return;
 
   const modalController = createModalController({
     modal,
@@ -155,13 +138,9 @@ export function wireCart() {
   openBtn.addEventListener("click", modalController.open);
 
   modal.addEventListener("click", (event) => {
-    if (event.target.closest("[data-cart-close]")) {
-      modalController.close();
-    }
+    if (event.target.closest("[data-cart-close]")) modalController.close();
 
-    if (event.target.closest("[data-cart-checkout]")) {
-      modalController.close();
-    }
+    if (event.target.closest("[data-cart-checkout]")) modalController.close();
   });
 
   clearBtn.addEventListener("click", () => {
@@ -177,29 +156,21 @@ export function wireCart() {
 export function syncCartCount() {
   const badge = document.querySelector("[data-cart-count]");
   const trigger = document.querySelector("[data-cart-open]");
-  if (!badge) {
-    return;
-  }
+  if (!badge) return;
   const amount = getState().cartItems.reduce((sum, item) => sum + item.qty, 0);
   badge.textContent = String(amount);
-  if (trigger) {
-    trigger.setAttribute("data-has-items", amount > 0 ? "true" : "false");
-  }
+  if (trigger) trigger.setAttribute("data-has-items", amount > 0 ? "true" : "false");
 }
 
 export function renderCartItems() {
   const list = document.querySelector("[data-cart-items]");
   const total = document.querySelector("[data-cart-total]");
-  if (!list || !total) {
-    return;
-  }
+  if (!list || !total) return;
 
   const state = getState();
   const totalUnits = state.cartItems.reduce((sum, item) => sum + item.qty, 0);
   const title = document.querySelector("[data-cart-title]");
-  if (title) {
-    title.textContent = `Cart (${totalUnits})`;
-  }
+  if (title) title.textContent = `Cart (${totalUnits})`;
 
   const checkoutActions = document.querySelector("[data-cart-checkout-actions]");
   if (checkoutActions) {
@@ -261,18 +232,14 @@ export function renderLayout(activePath) {
   const extraRoot = document.querySelector("[data-extra]");
   const isHomePage = activePath === "home";
 
-  if (!headerRoot || !footerRoot) {
-    return;
-  }
+  if (!headerRoot || !footerRoot) return;
 
   const header = cloneTemplateElement("site-header-template");
   const cartModal = cloneTemplateElement("cart-modal-template");
   if (header) {
     header.setAttribute("data-home", isHomePage ? "true" : "false");
     const activeLink = header.querySelector(`[data-page-link="${activePath}"]`);
-    if (activeLink) {
-      activeLink.setAttribute("data-active", "true");
-    }
+    if (activeLink) activeLink.setAttribute("data-active", "true");
 
     const mobileNav = header.querySelector("[data-mobile-nav]");
     if (mobileNav) {
@@ -334,15 +301,11 @@ export function renderLayout(activePath) {
     const extraSections = [];
     if (activePath !== "home") {
       const categoryNav = createCategoryNavElement({ withContainer: true });
-      if (categoryNav) {
-        extraSections.push(categoryNav);
-      }
+      if (categoryNav) extraSections.push(categoryNav);
     }
 
     const banner = cloneTemplateElement("banner-template");
-    if (banner) {
-      extraSections.push(banner);
-    }
+    if (banner) extraSections.push(banner);
     extraRoot.replaceChildren(...extraSections);
   }
 
@@ -354,9 +317,7 @@ export function wireHeader(activePath) {
   const header = document.querySelector(".site-header");
   const menuToggle = document.querySelector("[data-menu-toggle]");
   const mobileNav = document.querySelector("[data-mobile-nav]");
-  if (!header || !menuToggle || !mobileNav) {
-    return;
-  }
+  if (!header || !menuToggle || !mobileNav) return;
 
   let menuOpen = false;
   let resizeTicking = false;
@@ -388,9 +349,7 @@ export function wireHeader(activePath) {
   };
 
   const onResize = () => {
-    if (resizeTicking) {
-      return;
-    }
+    if (resizeTicking) return;
 
     resizeTicking = true;
     window.requestAnimationFrame(() => {
@@ -398,9 +357,7 @@ export function wireHeader(activePath) {
       const switchedToDesktop = isMobileViewport && !mobileNow;
       isMobileViewport = mobileNow;
 
-      if (switchedToDesktop && menuOpen) {
-        closeMenu();
-      }
+      if (switchedToDesktop && menuOpen) closeMenu();
 
       syncHeaderScroll();
       resizeTicking = false;
@@ -408,17 +365,12 @@ export function wireHeader(activePath) {
   };
 
   menuToggle.addEventListener("click", () => {
-    if (menuOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+    if (menuOpen) closeMenu();
+    else openMenu();
   });
 
   mobileNav.addEventListener("click", (event) => {
-    if (event.target === mobileNav || event.target.closest("a")) {
-      closeMenu();
-    }
+    if (event.target === mobileNav || event.target.closest("a")) closeMenu();
   });
 
   window.addEventListener("scroll", syncHeaderScroll);

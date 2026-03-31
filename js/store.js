@@ -10,14 +10,10 @@ function save() {
 
 export function loadStore() {
   const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) {
-    return state;
-  }
+  if (!raw) return state;
   try {
     state = JSON.parse(raw);
-    if (!Array.isArray(state.cartItems)) {
-      state.cartItems = [];
-    }
+    if (!Array.isArray(state.cartItems)) state.cartItems = [];
   } catch {
     state = { cartItems: [] };
   }
@@ -46,9 +42,7 @@ export function addToCart(product, unit) {
 
 export function decrementFromCart(productId) {
   const existing = state.cartItems.find((item) => item.id === productId);
-  if (!existing) {
-    return;
-  }
+  if (!existing) return;
   if (existing.qty <= 1) {
     state.cartItems = state.cartItems.filter((item) => item.id !== productId);
   } else {
@@ -59,9 +53,7 @@ export function decrementFromCart(productId) {
 
 export function incrementCart(productId) {
   const existing = state.cartItems.find((item) => item.id === productId);
-  if (!existing) {
-    return;
-  }
+  if (!existing) return;
   existing.qty += 1;
   save();
 }

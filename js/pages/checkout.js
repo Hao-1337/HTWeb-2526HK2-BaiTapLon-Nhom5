@@ -10,9 +10,7 @@ import {
 } from "../render.js";
 
 function renderSummaryItems(items, container) {
-  if (!container) {
-    return;
-  }
+  if (!container) return;
 
   container.innerHTML = items
     .map(
@@ -31,9 +29,7 @@ function renderSummaryItems(items, container) {
 }
 
 function renderSuccessItems(items, container) {
-  if (!container) {
-    return;
-  }
+  if (!container) return;
 
   container.innerHTML = items
     .map(
@@ -53,23 +49,18 @@ function renderSuccessItems(items, container) {
 
 export async function initCheckoutPage() {
   const root = document.querySelector("[data-page-content]");
-  if (!root) {
-    return;
-  }
+  if (!root) return;
 
   if (!isLoggedIn()) {
     document.title = "Checkout - Sign In Required";
     root.replaceChildren(cloneTemplateContent("checkout-login-required-template"));
     const loginBtn = document.querySelector("[data-checkout-login]");
-    if (loginBtn) {
+    if (loginBtn)
       loginBtn.addEventListener("click", () => {
         window.location.href = "./account.html?next=checkout";
       });
-    }
     const goBackButton = document.querySelector("[data-go-back]");
-    if (goBackButton) {
-      goBackButton.addEventListener("click", () => window.history.back());
-    }
+    if (goBackButton) goBackButton.addEventListener("click", () => window.history.back());
     return;
   }
 
@@ -84,16 +75,13 @@ export async function initCheckoutPage() {
     root.replaceChildren(cloneTemplateContent("checkout-empty-template"));
 
     const categoryNav = createCategoryNavElement({ withContainer: true });
-    if (categoryNav) {
-      root.append(categoryNav);
-    }
+    if (categoryNav) root.append(categoryNav);
 
     const goBackButton = document.querySelector("[data-go-back]");
-    if (goBackButton) {
+    if (goBackButton)
       goBackButton.addEventListener("click", () => {
         window.history.back();
       });
-    }
     return;
   }
 
@@ -101,9 +89,7 @@ export async function initCheckoutPage() {
 
   const session = getAccountSession();
   const emailInput = document.querySelector("[data-checkout-form] input[name='email']");
-  if (emailInput && session?.email) {
-    emailInput.value = session.email;
-  }
+  if (emailInput && session?.email) emailInput.value = session.email;
 
   const summaryItems = document.querySelector("[data-summary-items]");
   const summaryTotal = document.querySelector("[data-summary-total]");
@@ -126,24 +112,12 @@ export async function initCheckoutPage() {
 
   renderSummaryItems(state.cartItems, summaryItems);
   renderSuccessItems(state.cartItems, successItems);
-  if (summaryTotal) {
-    summaryTotal.textContent = formatPrice(cartTotal());
-  }
-  if (summaryShipping) {
-    summaryShipping.textContent = formatPrice(shipping);
-  }
-  if (summaryVat) {
-    summaryVat.textContent = formatPrice(vat);
-  }
-  if (summaryGrand) {
-    summaryGrand.textContent = formatPrice(grand);
-  }
-  if (successGrandTotal) {
-    successGrandTotal.textContent = formatPrice(grand);
-  }
-  if (placeOrder) {
-    placeOrder.disabled = !hasItems;
-  }
+  if (summaryTotal) summaryTotal.textContent = formatPrice(cartTotal());
+  if (summaryShipping) summaryShipping.textContent = formatPrice(shipping);
+  if (summaryVat) summaryVat.textContent = formatPrice(vat);
+  if (summaryGrand) summaryGrand.textContent = formatPrice(grand);
+  if (successGrandTotal) successGrandTotal.textContent = formatPrice(grand);
+  if (placeOrder) placeOrder.disabled = !hasItems;
 
   const syncPaymentState = () => {
     const payment = form.elements.payment.value;
@@ -159,12 +133,8 @@ export async function initCheckoutPage() {
       return;
     }
 
-    if (touchedFields.has("eMoneyNum")) {
-      validateField("eMoneyNum");
-    }
-    if (touchedFields.has("eMoneyPin")) {
-      validateField("eMoneyPin");
-    }
+    if (touchedFields.has("eMoneyNum")) validateField("eMoneyNum");
+    if (touchedFields.has("eMoneyPin")) validateField("eMoneyPin");
   };
 
   const successModalController = createModalController({
@@ -173,9 +143,7 @@ export async function initCheckoutPage() {
     trigger: placeOrder
   });
 
-  if (!placeOrder || !form || !goBackBtn || !success || !successPanel || !successHome || !paymentExtra || !cashExtra || !eMoneyNum || !eMoneyPin) {
-    return;
-  }
+  if (!placeOrder || !form || !goBackBtn || !success || !successPanel || !successHome || !paymentExtra || !cashExtra || !eMoneyNum || !eMoneyPin) return;
 
   goBackBtn.addEventListener("click", () => {
     window.history.back();
@@ -265,6 +233,16 @@ export async function initCheckoutPage() {
     return valid;
   };
 
+  const focusFirstInvalidField = () => {
+    for (const name of Object.keys(validators)) {
+      const input = form.elements[name];
+      if (input instanceof HTMLElement && input.classList.contains("input-error")) {
+        input.focus();
+        return;
+      }
+    }
+  };
+
   Object.keys(validators).forEach((name) => {
     const input = form.elements[name];
     if (input && input.type !== "radio") {
@@ -290,8 +268,7 @@ export async function initCheckoutPage() {
     event.preventDefault();
     syncPaymentState();
     if (!validateAll()) {
-      const firstError = form.querySelector(".input-error");
-      if (firstError) firstError.focus();
+      focusFirstInvalidField();
       return;
     }
 
@@ -320,12 +297,11 @@ export async function initCheckoutPage() {
     successModalController.open();
   });
 
-  if (successHome) {
+  if (successHome)
     successHome.addEventListener("click", () => {
       clearCart();
       syncCartCount();
       renderCartItems();
       successModalController.close();
     });
-  }
 }

@@ -10,39 +10,39 @@ function renderOrderCard(order) {
     const extraCount = order.items.length - 1;
     const statusClass = order.status === "complete" ? "status-complete" : "status-awaiting";
     const statusLabel = order.status === "complete" ? "Delivered" : "Awaiting Delivery";
-        const paymentMethod = order.paymentMethod || "cash";
-        const paymentLabel = paymentMethod === "e-money" ? "e-Payment" : "Cash on Delivery";
+    const paymentMethod = order.paymentMethod || "cash";
+    const paymentLabel = paymentMethod === "e-money" ? "e-Payment" : "Cash on Delivery";
 
     return `
-    <article class="order-card" data-order-id="${order.id}" data-payment-method="${paymentMethod}" data-order-status="${order.status}">
-      <div class="order-card-header">
-        <span class="order-id">${order.id}</span>
-        <span class="order-date">${formatDate(order.date)}</span>
-        <span class="order-status ${statusClass}">${statusLabel}</span>
-      </div>
-      <div class="order-card-body">
-        <div class="order-items-preview">
-          <img src="./assets/${firstItem.cartImg}" alt="${firstItem.short}" />
-          <div class="order-item-info">
-            <strong>${firstItem.short}</strong>
-            <span>${formatPrice(firstItem.price)} &times; ${firstItem.qty}</span>
-          </div>
-          ${extraCount > 0 ? `<span class="order-extra-items">+${extraCount} more item${extraCount > 1 ? "s" : ""}</span>` : ""}
-        </div>
-        <div class="order-total-info">
+        <article class="order-card" data-order-id="${order.id}" data-payment-method="${paymentMethod}" data-order-status="${order.status}">
+            <div class="order-card-header">
+                <span class="order-id">${order.id}</span>
+                <span class="order-date">${formatDate(order.date)}</span>
+                <span class="order-status ${statusClass}">${statusLabel}</span>
+            </div>
+            <div class="order-card-body">
+                <div class="order-items-preview">
+                    <img src="./assets/${firstItem.cartImg}" alt="${firstItem.short}" />
+                    <div class="order-item-info">
+                        <strong>${firstItem.short}</strong>
+                        <span>${formatPrice(firstItem.price)} &times; ${firstItem.qty}</span>
+                    </div>
+                    ${extraCount > 0 ? `<span class="order-extra-items">+${extraCount} more item${extraCount > 1 ? "s" : ""}</span>` : ""}
+                </div>
+                <div class="order-total-info">
                     <span class="order-payment">${paymentLabel}</span>
-          <span>Grand Total</span>
-          <strong>${formatPrice(order.grand)}</strong>
-        </div>
+                    <span>Grand Total</span>
+                    <strong>${formatPrice(order.grand)}</strong>
+                </div>
                 <div class="order-actions">
                     <button class="btn btn-dark order-cancel" type="button" data-cancel-order ${order.status === "complete" ? "disabled" : ""}>Cancel Order</button>
                     <p class="order-cancel-tooltip" data-cancel-tooltip role="alert" hidden>
                         Only awaiting e-payment orders can be canceled.
                     </p>
                 </div>
-      </div>
-    </article>
-  `;
+            </div>
+        </article>
+`;
 }
 
 function renderOrders(filter) {
@@ -123,9 +123,7 @@ function initDashboard(isNew = false) {
     }
     if (welcomeBanner) {
         welcomeBanner.hidden = !isNew;
-        if (isNew) {
-            welcomeBanner.textContent = `Welcome, ${session.name}! Your account has been created.`;
-        }
+        if (isNew) welcomeBanner.textContent = `Welcome, ${session.name}! Your account has been created.`;
     }
 
     renderOrders("all");
@@ -199,6 +197,13 @@ function initLogin() {
         return !msg;
     };
 
+    const focusFirstInvalidField = () => {
+        for (const name of Object.keys(loginValidators)) {
+            const input = form.elements[name];
+            if (input instanceof HTMLElement && input.classList.contains("input-error")) return input.focus();
+        }
+    };
+
     ["email", "password"].forEach((name) => {
         const input = form.elements[name];
         if (!input) return;
@@ -214,7 +219,7 @@ function initLogin() {
         if (globalErrorEl) globalErrorEl.textContent = "";
         const emailOk = validateField("email", true);
         const passwordOk = validateField("password", true);
-        if (!emailOk || !passwordOk) return;
+        if (!emailOk || !passwordOk) return focusFirstInvalidField();
 
         const result = login(form.elements.email.value, form.elements.password.value);
 
@@ -239,16 +244,11 @@ function initLogin() {
             }
 
             initDashboard(result.isNew);
-        } else {
-            if (globalErrorEl) globalErrorEl.textContent = result.error;
-        }
+        } else if (globalErrorEl) globalErrorEl.textContent = result.error;
     });
 }
 
 export async function initAccountPage() {
-    if (isLoggedIn()) {
-        initDashboard();
-    } else {
-        initLogin();
-    }
+    if (isLoggedIn()) initDashboard();
+    else initLogin();
 }
