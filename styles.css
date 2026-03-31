@@ -159,6 +159,11 @@ h3 {
 
 p {
     color: rgba(0, 0, 0, 0.5);
+    text-indent: 1em;
+}
+
+p ~ p {
+    margin-top: .5em;
 }
 
 .container {
@@ -470,6 +475,10 @@ body[data-page='speakers'] main {
     top: 2px;
 }
 
+.btn-grow {
+    flex-grow: 1;
+}
+
 .btn-dark {
     background: var(--black-soft);
     color: var(--white);
@@ -552,6 +561,7 @@ body[data-page='speakers'] main {
     border-radius: 0.8rem;
     background: var(--gray-dark);
     padding-bottom: 3rem;
+    transition: transform .3s ease;
 }
 
 .category-card img {
@@ -588,9 +598,19 @@ body[data-page='speakers'] main {
     opacity: 1;
 }
 
+.selection-animation:hover .category-card {
+    transform: scale(0.95);
+}
+
+.selection-animation .category-card:hover {
+    transform: scale(1.15);
+}
+
 .category-card span img {
     width: 0.8rem;
     height: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .home-highlights {
@@ -845,6 +865,7 @@ body[data-page='speakers'] main {
     padding: 10rem 2.4rem 0;
     background: rgba(0, 0, 0, 1.0);
     transform: translateY(-23.9rem);
+    z-index: 100;
 }
 
 .category-hero .container {
@@ -922,6 +943,9 @@ body[data-page='speakers'] main {
 
 .go-back {
     border: 0;
+    text-decoration: underline;
+    /* border: 1px solid var(--black);
+    padding: 1rem 2rem; */
     background: transparent;
     font-size: 1.5rem;
     color: rgba(0, 0, 0, 0.7);
@@ -1027,7 +1051,7 @@ body[data-page='speakers'] main {
 }
 
 .feature-grid h3,
-.feature-grid h3 + p,
+/* .feature-grid h3 + p, */
 .preference h3 {
     font-size: 3.2rem;
     line-height: 3.6rem;

@@ -27,3 +27,9 @@ if (pageName === "checkout") {
   const { initCheckoutPage } = await import("./pages/checkout.js");
   await initCheckoutPage();
 }
+
+// Initialize AOS animations
+// eslint-disable-next-line no-undef
+AOS.init({
+  once: true
+});

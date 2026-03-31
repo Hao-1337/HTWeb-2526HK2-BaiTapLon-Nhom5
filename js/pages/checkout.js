@@ -3,14 +3,31 @@ import { formatPrice, syncCartCount, renderCartItems } from "../render.js";
 import { createModalController } from "../render.js";
 
 export async function initCheckoutPage() {
-  const root = document.querySelector("[data-page-content]");
-  const state = getState();
-  const hasItems = state.cartItems.length > 0;
-  const shipping = 50;
-  const vat = Math.round(cartTotal() * 0.2);
-  const grand = cartTotal() + shipping + vat;
+    const root = document.querySelector("[data-page-content]");
+    const state = getState();
+    const hasItems = state.cartItems.length > 0;
+    const shipping = 50;
+    const vat = Math.round(cartTotal() * 0.2);
+    const grand = cartTotal() + shipping + vat;
 
-  root.innerHTML = `
+    if (!hasItems) {
+        document.title = "Checkout - No items in cart";
+        root.innerHTML = `
+      <section class="container checkout-layout">
+        <button class="go-back" type="button" data-go-back>Go Back</button>
+        <p>No items in your cart. Please add items to proceed to checkout.</p>
+      </section>
+    `;
+        const goBackBtn = document.querySelector("[data-go-back]");
+        if (goBackBtn) {
+            goBackBtn.addEventListener("click", () => {
+                window.history.back();
+            });
+        }
+        return;
+    }
+
+    root.innerHTML = `
     <section class="container checkout-layout">
       <button class="go-back" type="button" data-go-back>Go Back</button>
       <form class="checkout-form" data-checkout-form id="checkout-form">
@@ -90,9 +107,10 @@ export async function initCheckoutPage() {
       <aside class="summary">
         <h2>Summary</h2>
         <div class="summary-items">
-          ${state.cartItems
-            .map(
-              (item) => `
+          ${
+              state.cartItems
+                  .map(
+                      (item) => `
                 <article class="summary-item">
                   <img src="/assets/${item.cartImg}" alt="${item.short}" />
                   <div>
@@ -101,9 +119,10 @@ export async function initCheckoutPage() {
                   </div>
                   <span>x${item.qty}</span>
                 </article>
+              `,
+                  )
+                  .join("") ||
               `
-            )
-            .join("") || `
               <div class="checkout-empty">
                 <iframe
                   title="checkout empty"
@@ -114,7 +133,8 @@ export async function initCheckoutPage() {
                 ></iframe>
                 <button type="button" class="btn btn-dark" data-back-purchase><span>Back to Purchase</span></button>
               </div>
-            `}
+            `
+          }
         </div>
 
         <div class="summary-line"><span>Total</span><strong>${formatPrice(cartTotal())}</strong></div>
@@ -134,8 +154,8 @@ export async function initCheckoutPage() {
         <div class="success-info">
           <ul class="success-items">
             ${state.cartItems
-              .map(
-                (item) => `
+                .map(
+                    (item) => `
                   <li class="success-item">
                     <img src="/assets/${item.cartImg}" alt="${item.short}" width="50" height="50" />
                     <p class="success-item-info">
@@ -144,9 +164,9 @@ export async function initCheckoutPage() {
                     </p>
                     <span>x${item.qty}</span>
                   </li>
-                `
-              )
-              .join("")}
+                `,
+                )
+                .join("")}
           </ul>
           <div class="success-total">
             <p class="success-total-label">Grand Total</p>
@@ -158,121 +178,121 @@ export async function initCheckoutPage() {
     </div>
   `;
 
-  const placeOrder = document.querySelector("[data-place-order]");
-  const form = document.querySelector("[data-checkout-form]");
-  const goBackBtn = document.querySelector("[data-go-back]");
-  const backPurchaseBtn = document.querySelector("[data-back-purchase]");
-  const success = document.querySelector("[data-success]");
-  const successPanel = document.querySelector("[data-success-panel]");
-  const successHome = document.querySelector("[data-success-home]");
-  const paymentRadios = document.querySelectorAll("[data-payment-radio]");
-  const paymentExtra = document.querySelector("[data-payment-extra]");
-  const cashExtra = document.querySelector("[data-cash-extra]");
-  const eMoneyNum = document.querySelector("[data-emoney-num]");
-  const eMoneyPin = document.querySelector("[data-emoney-pin]");
+    const placeOrder = document.querySelector("[data-place-order]");
+    const form = document.querySelector("[data-checkout-form]");
+    const goBackBtn = document.querySelector("[data-go-back]");
+    const backPurchaseBtn = document.querySelector("[data-back-purchase]");
+    const success = document.querySelector("[data-success]");
+    const successPanel = document.querySelector("[data-success-panel]");
+    const successHome = document.querySelector("[data-success-home]");
+    const paymentRadios = document.querySelectorAll("[data-payment-radio]");
+    const paymentExtra = document.querySelector("[data-payment-extra]");
+    const cashExtra = document.querySelector("[data-cash-extra]");
+    const eMoneyNum = document.querySelector("[data-emoney-num]");
+    const eMoneyPin = document.querySelector("[data-emoney-pin]");
 
-  const syncPaymentState = () => {
-    const payment = form.elements.payment.value;
-    const isEMoney = payment === "e-money";
-    paymentExtra.hidden = !isEMoney;
-    cashExtra.hidden = isEMoney;
-    eMoneyNum.required = isEMoney;
-    eMoneyPin.required = isEMoney;
-  };
+    const syncPaymentState = () => {
+        const payment = form.elements.payment.value;
+        const isEMoney = payment === "e-money";
+        paymentExtra.hidden = !isEMoney;
+        cashExtra.hidden = isEMoney;
+        eMoneyNum.required = isEMoney;
+        eMoneyPin.required = isEMoney;
+    };
 
-  paymentRadios.forEach((radio) => {
-    radio.addEventListener("change", syncPaymentState);
-  });
-  syncPaymentState();
-
-  const successModalController = createModalController({
-    modal: success,
-    panel: successPanel,
-    trigger: placeOrder
-  });
-
-  if (!placeOrder) {
-    return;
-  }
-
-  goBackBtn.addEventListener("click", () => {
-    window.history.back();
-  });
-
-  if (backPurchaseBtn) {
-    backPurchaseBtn.addEventListener("click", () => {
-      window.history.back();
+    paymentRadios.forEach((radio) => {
+        radio.addEventListener("change", syncPaymentState);
     });
-  }
-
-  const PHONE_RE = /^[+]?[\d\s\-().]{7,15}$/;
-
-  const validators = {
-    name:      (v) => v.trim() ? "" : "Cannot be empty",
-    email:     (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? "" : "Wrong format",
-    phone:     (v) => PHONE_RE.test(v.trim()) ? "" : "Invalid phone number",
-    address:   (v) => v.trim() ? "" : "Cannot be empty",
-    zip:       (v) => /^\d{3,10}$/.test(v.trim()) ? "" : "Must be a number",
-    city:      (v) => v.trim() ? "" : "Cannot be empty",
-    country:   (v) => v.trim() ? "" : "Cannot be empty",
-    eMoneyNum: (v) => (cashExtra.hidden ? /^\d{9}$/.test(v.trim()) ? "" : "9 digits required" : ""),
-    eMoneyPin: (v) => (cashExtra.hidden ? /^\d{4}$/.test(v.trim()) ? "" : "4 digits required" : ""),
-  };
-
-  const showFieldError = (name, message) => {
-    const errEl = document.querySelector(`[data-err="${name}"]`);
-    const input = form.elements[name];
-    if (errEl) errEl.textContent = message;
-    if (input && input.type !== "radio") {
-      input.classList.toggle("input-error", !!message);
-    }
-  };
-
-  const clearFieldError = (name) => showFieldError(name, "");
-
-  const validateAll = () => {
-    let valid = true;
-    for (const [name, validate] of Object.entries(validators)) {
-      const input = form.elements[name];
-      if (!input) continue;
-      const msg = validate(input.value);
-      showFieldError(name, msg);
-      if (msg) valid = false;
-    }
-    return valid;
-  };
-
-  // Clear errors on user input
-  Object.keys(validators).forEach((name) => {
-    const input = form.elements[name];
-    if (input && input.type !== "radio") {
-      input.addEventListener("input", () => clearFieldError(name));
-    }
-  });
-
-  placeOrder.addEventListener("click", () => {
     syncPaymentState();
-    if (!validateAll()) {
-      // Scroll first error into view
-      const firstError = form.querySelector(".input-error");
-      if (firstError) firstError.focus();
-      return;
+
+    const successModalController = createModalController({
+        modal: success,
+        panel: successPanel,
+        trigger: placeOrder,
+    });
+
+    if (!placeOrder) {
+        return;
     }
 
-    const payload = Object.fromEntries(new FormData(form).entries());
-    setTimeout(() => {
-      alert(`just to make sure everything is collected correctly \n${JSON.stringify(payload)}`);
-    }, 1200);
-
-    successModalController.open();
-  });
-
-  if (successHome) {
-    successHome.addEventListener("click", () => {
-      clearCart();
-      syncCartCount();
-      renderCartItems();
-      successModalController.close();
+    goBackBtn.addEventListener("click", () => {
+        window.history.back();
     });
-  }
+
+    if (backPurchaseBtn) {
+        backPurchaseBtn.addEventListener("click", () => {
+            window.history.back();
+        });
+    }
+
+    const PHONE_RE = /^[+]?[\d\s\-().]{7,15}$/;
+
+    const validators = {
+        name: (v) => (v.trim() ? "" : "Cannot be empty"),
+        email: (v) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? "" : "Wrong format"),
+        phone: (v) => (PHONE_RE.test(v.trim()) ? "" : "Invalid phone number"),
+        address: (v) => (v.trim() ? "" : "Cannot be empty"),
+        zip: (v) => (/^\d{3,10}$/.test(v.trim()) ? "" : "Must be a number"),
+        city: (v) => (v.trim() ? "" : "Cannot be empty"),
+        country: (v) => (v.trim() ? "" : "Cannot be empty"),
+        eMoneyNum: (v) => (cashExtra.hidden ? (/^\d{9}$/.test(v.trim()) ? "" : "9 digits required") : ""),
+        eMoneyPin: (v) => (cashExtra.hidden ? (/^\d{4}$/.test(v.trim()) ? "" : "4 digits required") : ""),
+    };
+
+    const showFieldError = (name, message) => {
+        const errEl = document.querySelector(`[data-err="${name}"]`);
+        const input = form.elements[name];
+        if (errEl) errEl.textContent = message;
+        if (input && input.type !== "radio") {
+            input.classList.toggle("input-error", !!message);
+        }
+    };
+
+    const clearFieldError = (name) => showFieldError(name, "");
+
+    const validateAll = () => {
+        let valid = true;
+        for (const [name, validate] of Object.entries(validators)) {
+            const input = form.elements[name];
+            if (!input) continue;
+            const msg = validate(input.value);
+            showFieldError(name, msg);
+            if (msg) valid = false;
+        }
+        return valid;
+    };
+
+    // Clear errors on user input
+    Object.keys(validators).forEach((name) => {
+        const input = form.elements[name];
+        if (input && input.type !== "radio") {
+            input.addEventListener("input", () => clearFieldError(name));
+        }
+    });
+
+    placeOrder.addEventListener("click", () => {
+        syncPaymentState();
+        if (!validateAll()) {
+            // Scroll first error into view
+            const firstError = form.querySelector(".input-error");
+            if (firstError) firstError.focus();
+            return;
+        }
+
+        const payload = Object.fromEntries(new FormData(form).entries());
+        setTimeout(() => {
+            alert(`just to make sure everything is collected correctly \n${JSON.stringify(payload)}`);
+        }, 1200);
+
+        successModalController.open();
+    });
+
+    if (successHome) {
+        successHome.addEventListener("click", () => {
+            clearCart();
+            syncCartCount();
+            renderCartItems();
+            successModalController.close();
+        });
+    }
 }

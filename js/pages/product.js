@@ -16,7 +16,7 @@ export async function initProductPage() {
   }
 
   root.innerHTML = `
-    <section class="container product-detail">
+    <section class="container product-detail" data-aos="fade" data-aos-duration="1000">
       <button class="go-back" type="button" data-go-back>Go Back</button>
       <div class="product-hero">
         <div class="product-img-wrap">
@@ -64,7 +64,7 @@ export async function initProductPage() {
           ${item.preference
             .map(
               (pref) => `
-                <article class="preference-card">
+                <article class="preference-card" data-aos="flip-left">
                   <img src="/assets/${pref.url}" alt="${pref.product}" />
                   <h4>${pref.product}</h4>
                   <a class="btn btn-primary" href="./product.html?id=${pref.link.replace("/product_detail/", "")}"><span>See Product</span></a>

@@ -10,7 +10,7 @@ export function categoryNavMarkup(options = {}) {
   const { withContainer = true, extraClass = "" } = options;
   const wrapperClass = `${withContainer ? "container" : ""} ${extraClass}`.trim();
   return `
-    <section class="category-nav ${wrapperClass}">
+    <section class="category-nav selection-animation ${wrapperClass}">
       <a class="category-card" href="./headphones.html">
         <img src="/assets/shared/desktop/image-headphones.png" alt="headphones" />
         <h3>Headphones</h3>
@@ -45,7 +45,7 @@ export function bannerMarkup() {
       <picture>
         <source media="(max-width: 768px)" srcset="/assets/shared/mobile/image-best-gear.jpg" />
         <source media="(max-width: 1024px)" srcset="/assets/shared/tablet/image-best-gear.jpg" />
-        <img src="/assets/shared/desktop/image-best-gear.jpg" alt="best gear" />
+        <img src="/assets/shared/desktop/image-best-gear.jpg" alt="best gear" data-aos="flip-right" data-aos-duration="800" data-aos-delay="100" />
       </picture>
     </section>
   `;
@@ -231,8 +231,9 @@ export function renderCartItems() {
     checkoutActions.innerHTML = state.cartItems.length
       ? `<a class="btn btn-primary" data-cart-checkout href="./checkout.html"><span>Checkout</span></a>
          <button class="btn btn-ghost" data-cart-close><span>Close</span></button>`
-      : `<button class="btn btn-dark" disabled><span>No items in the list</span></button>
-         <button class="btn btn-ghost" data-cart-close><span>Close</span></button>`;
+      : `<button class="btn btn-dark btn-grow" disabled><span>No items in the list</span></button>`;
+    // Tại sao nhỉ
+    // <button class="btn btn-ghost" data-cart-close><span>Close</span></button>
   }
 
   if (!state.cartItems.length) {
