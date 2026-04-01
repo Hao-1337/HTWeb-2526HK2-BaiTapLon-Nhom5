@@ -74,7 +74,7 @@ export async function initCheckoutPage() {
     document.title = "Checkout - No items in cart";
     root.replaceChildren(cloneTemplateContent("checkout-empty-template"));
 
-    const categoryNav = createCategoryNavElement({ withContainer: true });
+    const categoryNav = createCategoryNavElement({ withContainer: true, extraClass: "empty-checkout-nav" });
     if (categoryNav) root.append(categoryNav);
 
     const goBackButton = document.querySelector("[data-go-back]");
