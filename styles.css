@@ -1640,7 +1640,11 @@ body[data-page='speakers'] main {
     margin-bottom: 12rem;
 }
 
-.gallery img {
+.gallery-item {
+    margin: 0;
+}
+
+.gallery-item img {
     width: 100%;
     height: auto;
     display: block;
@@ -1649,16 +1653,25 @@ body[data-page='speakers'] main {
     object-fit: contain;
 }
 
-.gallery img:nth-child(1) {
+.gallery-item figcaption {
+    margin-top: 1.2rem;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+}
+
+.gallery .gallery-item:nth-child(1) {
     grid-area: img1;
 }
 
-.gallery img:nth-child(2) {
+.gallery .gallery-item:nth-child(2) {
     grid-area: img2;
 }
 
-.gallery img:nth-child(3) {
+.gallery .gallery-item:nth-child(3) {
     grid-area: img3;
+}
+
+.gallery .gallery-item:nth-child(3) img {
     max-height: 70rem;
 }
 
@@ -2676,15 +2689,15 @@ body[data-page='checkout'] {
             "img3";
     }
 
-    .gallery img:nth-child(1) {
+    .gallery .gallery-item:nth-child(1) img {
         max-height: 17.4rem;
     }
 
-    .gallery img:nth-child(2) {
+    .gallery .gallery-item:nth-child(2) img {
         max-height: 17.4rem;
     }
 
-    .gallery img:nth-child(3) {
+    .gallery .gallery-item:nth-child(3) img {
         max-height: 36.8rem;
     }
 
@@ -2808,24 +2821,24 @@ body[data-page='checkout'] {
     transition: all .3s ease;
 }
 
-[data-product-id="echoframe-s2"] .gallery img:nth-child(3) {
+[data-product-id="echoframe-s2"] .gallery .gallery-item:nth-child(3) img {
     max-height: 60%;
 }
 
 @media screen and (max-width: 1024px) {
-    [data-product-id="echoframe-s2"] .gallery img:nth-child(3) {
+    [data-product-id="echoframe-s2"] .gallery .gallery-item:nth-child(3) img {
         max-height: 28rem;
     }
 }
 
 @media screen and (max-width: 738px) {
-    [data-product-id="echoframe-s2"] .gallery img:nth-child(3) {
+    [data-product-id="echoframe-s2"] .gallery .gallery-item:nth-child(3) img {
         max-height: 32.5%;
     }
 }
 
 @media screen and (max-width: 550px) {
-    [data-product-id="echoframe-s2"] .gallery img:nth-child(3) {
+    [data-product-id="echoframe-s2"] .gallery .gallery-item:nth-child(3) img {
         max-height: 21rem;
     }
 }

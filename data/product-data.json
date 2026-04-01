@@ -18,9 +18,9 @@
             ["1x", "Travel Bag"]
         ],
         "gallery":[
-            ["product-xx99-mark-two-headphones/desktop/image-gallery-1.jpg", "random picture"],
-            ["product-xx99-mark-two-headphones/desktop/image-gallery-2.jpg", "random picture"],
-            ["product-xx99-mark-two-headphones/desktop/image-gallery-3.jpg", "random picture"]
+            ["product-xx99-mark-two-headphones/desktop/image-gallery-1.jpg", "XX99 Mark II angled studio shot", "Crafted for reference-grade listening, this angled studio frame highlights the XX99 Mark II signature silhouette, from its brushed metal yoke to its hand-finished leather headband and plush ear cushions."],
+            ["product-xx99-mark-two-headphones/desktop/image-gallery-2.jpg", "XX99 Mark II controls and earcup detail", "This close-up reveals the precision of the earcup interface, where tactile controls and premium surface detailing are designed for seamless control without interrupting your listening flow."],
+            ["product-xx99-mark-two-headphones/desktop/image-gallery-3.jpg", "XX99 Mark II full setup hero", "Set in a refined listening scene, the full XX99 Mark II hero composition captures the flagship balance of comfort, craftsmanship, and uncompromising sonic performance."]
         ],
         "preference":[
             {
@@ -61,9 +61,9 @@
             ["1x", "3.5mm 5m Audio Cable"]
         ],
         "gallery":[
-            ["product-xx99-mark-one-headphones/desktop/image-gallery-1.jpg", "random picture"],
-            ["product-xx99-mark-one-headphones/desktop/image-gallery-2.jpg", "random picture"],
-            ["product-xx99-mark-one-headphones/desktop/image-gallery-3.jpg", "random picture"]
+            ["product-xx99-mark-one-headphones/desktop/image-gallery-1.jpg", "XX99 Mark I front-quarter profile", "The XX99 Mark I front-quarter profile showcases the model's iconic proportions and robust frame architecture, built to deliver enduring confidence in every session."],
+            ["product-xx99-mark-one-headphones/desktop/image-gallery-2.jpg", "XX99 Mark I headband and material detail", "A closer look at the headband and hinge assembly emphasizes durable metalwork, carefully tuned cushioning, and a finish language rooted in timeless premium design."],
+            ["product-xx99-mark-one-headphones/desktop/image-gallery-3.jpg", "XX99 Mark I lifestyle desk scene", "Positioned in a dedicated desk setup, the XX99 Mark I reflects its legacy as a trusted audiophile benchmark for both focused mixing and everyday enjoyment."]
         ],
         "preference":[
             {
@@ -104,9 +104,9 @@
             ["1x", "3.5mm 5m Audio Cable"]
         ],
         "gallery":[
-            ["product-xx59-headphones/desktop/image-gallery-1.jpg", "random picture"],
-            ["product-xx59-headphones/desktop/image-gallery-2.jpg", "random picture"],
-            ["product-xx59-headphones/desktop/image-gallery-3.jpg", "random picture"]
+            ["product-xx59-headphones/desktop/image-gallery-1.jpg", "XX59 portable foldable view", "Engineered for movement, this folded XX59 product view highlights a compact, lightweight structure that slips easily into daily routines and travel kits."],
+            ["product-xx59-headphones/desktop/image-gallery-2.jpg", "XX59 earcup interface close-up", "The XX59 interface detail spotlights intuitive touch controls and sculpted earcup geometry, delivering effortless command over calls, volume, and playback."],
+            ["product-xx59-headphones/desktop/image-gallery-3.jpg", "XX59 everyday listening scene", "Presented in a relaxed lifestyle setting, XX59 blends modern styling with dependable wireless performance for all-day listening without compromise."]
         ],
         "preference":[
             {
@@ -148,9 +148,9 @@
             ["1x", "10m Optical Cable"]
         ],
         "gallery":[
-            ["product-zx9-speaker/desktop/image-gallery-1.jpg", "random picture"],
-            ["product-zx9-speaker/desktop/image-gallery-2.jpg", "random picture"],
-            ["product-zx9-speaker/desktop/image-gallery-3.jpg", "random picture"]
+            ["product-zx9-speaker/desktop/image-gallery-1.jpg", "ZX9 cabinet and driver close-up", "This close cabinet study reveals the ZX9's precision driver integration and premium construction, built to translate nuance, impact, and authority in equal measure."],
+            ["product-zx9-speaker/desktop/image-gallery-2.jpg", "ZX9 side profile in listening room", "Captured in-profile within a contemporary room, ZX9's sculpted form demonstrates how statement acoustics can coexist with sophisticated interior design."],
+            ["product-zx9-speaker/desktop/image-gallery-3.jpg", "ZX9 full pair cinematic setup", "The full ZX9 pair takes center stage in a cinematic setup, projecting flagship presence and expansive stereo depth for truly immersive listening."]
         ],
         "preference":[
             {
@@ -192,9 +192,9 @@
             ["1x", "7.5m Optical Cable"]
         ],
         "gallery":[
-            ["product-zx7-speaker/desktop/image-gallery-1.jpg", "random picture"],
-            ["product-zx7-speaker/desktop/image-gallery-2.jpg", "random picture"],
-            ["product-zx7-speaker/desktop/image-gallery-3.jpg", "random picture"]
+            ["product-zx7-speaker/desktop/image-gallery-1.jpg", "ZX7 front detail with grille", "A refined front detail captures the ZX7 grille and minimalist face, designed to deliver an understated look while preserving a confident acoustic identity."],
+            ["product-zx7-speaker/desktop/image-gallery-2.jpg", "ZX7 materials and control context", "Material textures and control context come forward in this frame, expressing the ZX7 balance of premium finishing and intuitive, everyday operation."],
+            ["product-zx7-speaker/desktop/image-gallery-3.jpg", "ZX7 in contemporary home setup", "Integrated into a contemporary interior, ZX7 demonstrates versatile placement, polished aesthetics, and the rich output expected from a high-performance home speaker."]
         ],
         "preference":[
             {
@@ -236,9 +236,9 @@
             ["1x", "Travel Pouch"]
         ],
         "gallery":[
-            ["product-yx1-earphones/desktop/image-gallery-1.jpg", "random picture"],
-            ["product-yx1-earphones/desktop/image-gallery-2.jpg", "random picture"],
-            ["product-yx1-earphones/desktop/image-gallery-3.jpg", "random picture"]
+            ["product-yx1-earphones/desktop/image-gallery-1.jpg", "YX1 earbuds case presentation", "This polished YX1 presentation highlights the compact charging case and refined earbud contours, created for effortless carry and elevated everyday utility."],
+            ["product-yx1-earphones/desktop/image-gallery-2.jpg", "YX1 in-ear comfort detail", "A fit-focused close-up showcases the ergonomic in-ear profile and silicone seal, designed to maintain comfort while isolating distractions during long sessions."],
+            ["product-yx1-earphones/desktop/image-gallery-3.jpg", "YX1 dynamic lifestyle composition", "Framed in motion, YX1 reflects lightweight wireless freedom, contemporary styling, and practical endurance for commutes, workouts, and daily listening."]
         ],
         "preference":[
             {
@@ -279,9 +279,9 @@
             ["1x", "User Manual"]
         ],
         "gallery":[
-            ["product-airpulse-h1/desktop/image-gallery-1.jpg", "airpulse gallery 1"],
-            ["product-airpulse-h1/desktop/image-gallery-2.jpg", "airpulse gallery 2"],
-            ["product-airpulse-h1/desktop/image-gallery-3.jpg", "airpulse gallery 3"]
+            ["product-airpulse-h1/desktop/image-gallery-1.jpg", "AirPulse H1 structure and comfort angle", "This AirPulse H1 comfort angle emphasizes a lightweight frame and generous cushioning profile, tuned for stable wear from focused work blocks to extended travel."],
+            ["product-airpulse-h1/desktop/image-gallery-2.jpg", "AirPulse H1 control surface detail", "A detailed control-surface view highlights tactile hardware inputs and clean industrial lines, reinforcing AirPulse H1's practical, modern interaction design."],
+            ["product-airpulse-h1/desktop/image-gallery-3.jpg", "AirPulse H1 modern desk lifestyle shot", "Styled in a modern desk environment, AirPulse H1 presents a versatile audio companion for music, meetings, and low-latency content consumption."]
         ],
         "preference":[
             {
@@ -322,9 +322,9 @@
             ["1x", "3.5mm Audio Cable"]
         ],
         "gallery":[
-            ["product-echoframe-s2/desktop/image-gallery-1.jpg", "echoframe gallery 1"],
-            ["product-echoframe-s2/desktop/image-gallery-2.jpg", "echoframe gallery 2"],
-            ["product-echoframe-s2/desktop/image-gallery-3.jpg", "echoframe gallery 3"]
+            ["product-echoframe-s2/desktop/image-gallery-1.jpg", "EchoFrame S2 front acoustic face", "The EchoFrame S2 front view spotlights its acoustic facade and compact stance, purpose-built to project confident sound without overwhelming the room."],
+            ["product-echoframe-s2/desktop/image-gallery-2.jpg", "EchoFrame S2 ports and connectivity context", "This connectivity-focused frame reveals EchoFrame S2's input flexibility, enabling effortless switching across Bluetooth, optical, and analog sources."],
+            ["product-echoframe-s2/desktop/image-gallery-3.jpg", "EchoFrame S2 ambient room placement", "Placed within a warm ambient interior, EchoFrame S2 blends contemporary form with commanding output, creating a seamless centerpiece for modern listening spaces."]
         ],
         "preference":[
             {
@@ -365,9 +365,9 @@
             ["1x", "USB-C Charging Cable"]
         ],
         "gallery":[
-            ["product-aerobuds-lite/desktop/image-gallery-1.jpg", "aerobuds gallery 1"],
-            ["product-aerobuds-lite/desktop/image-gallery-2.jpg", "aerobuds gallery 2"],
-            ["product-aerobuds-lite/desktop/image-gallery-3.jpg", "aerobuds gallery 3"]
+            ["product-aerobuds-lite/desktop/image-gallery-1.jpg", "AeroBuds Lite case and buds overview", "With case open and earbuds on display, this AeroBuds Lite overview emphasizes compact portability, rapid access, and a form factor designed for life in motion."],
+            ["product-aerobuds-lite/desktop/image-gallery-2.jpg", "AeroBuds Lite fit and silicone tip detail", "A closer fit detail showcases the in-ear profile and silicone tip architecture, engineered for secure comfort and stable isolation through everyday movement."],
+            ["product-aerobuds-lite/desktop/image-gallery-3.jpg", "AeroBuds Lite urban lifestyle context", "Captured in an urban lifestyle scene, AeroBuds Lite represents lightweight convenience, clear call handling, and dependable all-day battery confidence."]
         ],
         "preference":[
             {

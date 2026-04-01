@@ -54,7 +54,15 @@ export async function initProductPage() {
 
       <div class="gallery">
         ${item.gallery
-          .map(([url, alt]) => `<img src="./assets/${url}" alt="${alt}" />`)
+          .map(([url, alt, description]) => {
+            const caption = description || alt;
+            return `
+              <figure class="gallery-item">
+                <img src="./assets/${url}" alt="${alt}" />
+                <figcaption>${caption}</figcaption>
+              </figure>
+            `;
+          })
           .join("")}
       </div>
 
