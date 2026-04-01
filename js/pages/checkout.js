@@ -201,6 +201,7 @@ export async function initCheckoutPage() {
     eMoneyPin: (value) => (cashExtra.hidden ? (/^\d{4}$/.test(value.trim()) ? "" : "4 digits required") : "")
   };
   const touchedFields = new Set();
+  let hasSubmittedOrder = false;
 
   const showFieldError = (name, message) => {
     const errEl = document.querySelector(`[data-err="${name}"]`);
@@ -266,6 +267,8 @@ export async function initCheckoutPage() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    if (hasSubmittedOrder) return;
+
     syncPaymentState();
     if (!validateAll()) {
       focusFirstInvalidField();
@@ -293,6 +296,23 @@ export async function initCheckoutPage() {
         country: payload.country
       }
     });
+
+    hasSubmittedOrder = true;
+    clearCart();
+    syncCartCount();
+    renderCartItems();
+    placeOrder.disabled = true;
+
+    touchedFields.clear();
+    form.reset();
+    Object.keys(validators).forEach((name) => clearFieldError(name));
+    if (summaryItems) summaryItems.innerHTML = "";
+    if (summaryTotal) summaryTotal.textContent = formatPrice(0);
+    if (summaryShipping) summaryShipping.textContent = formatPrice(0);
+    if (summaryVat) summaryVat.textContent = formatPrice(0);
+    if (summaryGrand) summaryGrand.textContent = formatPrice(0);
+    if (paymentRadios[0]) paymentRadios[0].checked = true;
+    syncPaymentState();
 
     successModalController.open();
   });
