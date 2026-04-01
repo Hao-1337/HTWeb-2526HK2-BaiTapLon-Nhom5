@@ -166,7 +166,7 @@ p {
     color: rgba(0, 0, 0, 0.5);
 }
 
-p ~ p {
+p~p {
     margin-top: .5em;
 }
 
@@ -953,6 +953,7 @@ body[data-page='speakers'] main {
 }
 
 @keyframes heroSeeMoreFloat {
+
     0%,
     100% {
         transform: translateX(-50%);
@@ -1223,7 +1224,7 @@ body[data-page='speakers'] main {
     margin-bottom: 2.4rem;
 }
 
-.highlight.zx9 > div {
+.highlight.zx9>div {
     z-index: 2;
     max-width: 34.9rem;
 }
@@ -1284,7 +1285,7 @@ body[data-page='speakers'] main {
     object-fit: cover;
 }
 
-.highlight.yx1 > div {
+.highlight.yx1>div {
     background: rgba(241, 241, 241, 1.0);
     width: 100%;
     border-radius: 8px;
@@ -1572,7 +1573,9 @@ body[data-page='speakers'] main {
     transition: color 0.3s ease;
 }
 
-.qty-stepper button:hover { color: var(--brown-dark); }
+.qty-stepper button:hover {
+    color: var(--brown-dark);
+}
 
 .qty-stepper span {
     font-size: 1.3rem;
@@ -1639,14 +1642,25 @@ body[data-page='speakers'] main {
 
 .gallery img {
     width: 100%;
-    height: 100%;
+    height: auto;
+    display: block;
     border-radius: 0.8rem;
-    object-fit: cover;
+    max-height: 80rem;
+    object-fit: contain;
 }
 
-.gallery img:nth-child(1) { grid-area: img1; }
-.gallery img:nth-child(2) { grid-area: img2; }
-.gallery img:nth-child(3) { grid-area: img3; }
+.gallery img:nth-child(1) {
+    grid-area: img1;
+}
+
+.gallery img:nth-child(2) {
+    grid-area: img2;
+}
+
+.gallery img:nth-child(3) {
+    grid-area: img3;
+    max-height: 70rem;
+}
 
 .preference {
     text-align: center;
@@ -1945,7 +1959,7 @@ body[data-page='checkout'] {
     margin-bottom: 4.1rem;
 }
 
-.checkout-form .form-grid > label {
+.checkout-form .form-grid>label {
     display: grid;
     grid-template-rows: auto auto;
     gap: 0.8rem;
@@ -2015,7 +2029,7 @@ body[data-page='checkout'] {
     margin-bottom: 2.4rem;
 }
 
-.summary-item > span {
+.summary-item>span {
     font-weight: 700;
     opacity: 0.5;
 }
@@ -2108,7 +2122,7 @@ body[data-page='checkout'] {
     margin-bottom: 2.4rem;
 }
 
-.success-panel > p {
+.success-panel>p {
     opacity: 0.5;
     margin-bottom: 3.3rem;
 }
@@ -2662,9 +2676,17 @@ body[data-page='checkout'] {
             "img3";
     }
 
-    .gallery img:nth-child(1) { max-height: 17.4rem; }
-    .gallery img:nth-child(2) { max-height: 17.4rem; }
-    .gallery img:nth-child(3) { max-height: 36.8rem; }
+    .gallery img:nth-child(1) {
+        max-height: 17.4rem;
+    }
+
+    .gallery img:nth-child(2) {
+        max-height: 17.4rem;
+    }
+
+    .gallery img:nth-child(3) {
+        max-height: 36.8rem;
+    }
 
     .checkout-form,
     .summary {
@@ -2777,5 +2799,33 @@ body[data-page='checkout'] {
 
     .success-icon {
         margin-bottom: 1.6rem;
+    }
+}
+
+/** Asset quá là rác nên là chơi tạm như này đi*/
+
+.gallery {
+    transition: all .3s ease;
+}
+
+[data-product-id="echoframe-s2"] .gallery img:nth-child(3) {
+    max-height: 60%;
+}
+
+@media screen and (max-width: 1024px) {
+    [data-product-id="echoframe-s2"] .gallery img:nth-child(3) {
+        max-height: 28rem;
+    }
+}
+
+@media screen and (max-width: 738px) {
+    [data-product-id="echoframe-s2"] .gallery img:nth-child(3) {
+        max-height: 32.5%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    [data-product-id="echoframe-s2"] .gallery img:nth-child(3) {
+        max-height: 21rem;
     }
 }

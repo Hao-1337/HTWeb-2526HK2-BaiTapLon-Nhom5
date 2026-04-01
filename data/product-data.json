@@ -260,5 +260,134 @@
                 "link":"/product_detail/zx9"
             }
         ]
+    },
+    {
+        "id":"airpulse-h1",
+        "short":"airpulse h1",
+        "productIMG": "product-airpulse-h1/desktop/image-product.jpg",
+        "feature":"demo product",
+        "product":"AirPulse H1 Headphones",
+        "info":"A demo wireless headphone model inspired by modern consumer audio gear, tuned for balanced sound and everyday portability.",
+        "price":1099,
+        "featureDesc1":"The AirPulse H1 is built for all-day listening with lightweight materials, soft ear cushions, and low-latency Bluetooth pairing for music, video, and gaming. On-device controls let you switch tracks, answer calls, and adjust volume quickly.",
+        "featureDesc2":"With fast USB-C charging and adaptive noise reduction, this demo model is ideal for product-card, cart, and checkout testing. It is intentionally configured to mirror your existing Audiophile data contract for seamless rendering.",
+        "cartImg":"cart/image-airpulse-h1.jpg",
+        "inTheBox":[
+            ["1x", "Headphone Unit"],
+            ["2x", "Replacement Earcups"],
+            ["1x", "USB-C Charging Cable"],
+            ["1x", "User Manual"]
+        ],
+        "gallery":[
+            ["product-airpulse-h1/desktop/image-gallery-1.jpg", "airpulse gallery 1"],
+            ["product-airpulse-h1/desktop/image-gallery-2.jpg", "airpulse gallery 2"],
+            ["product-airpulse-h1/desktop/image-gallery-3.jpg", "airpulse gallery 3"]
+        ],
+        "preference":[
+            {
+                "url":"product-xx99-mark-two-headphones/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"XX99 MARK II",
+                "link":"/product_detail/xx99-mark-ii"
+            },
+            {
+                "url":"product-zx7-speaker/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"ZX7 SPEAKER",
+                "link":"/product_detail/zx7"
+            },
+            {
+                "url":"product-yx1-earphones/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"YX1",
+                "link":"/product_detail/yx1"
+            }
+        ]
+    },
+    {
+        "id":"echoframe-s2",
+        "short":"echoframe s2",
+        "productIMG": "product-echoframe-s2/desktop/image-product.jpg",
+        "feature":"demo product",
+        "product":"EchoFrame S2 Speaker",
+        "info":"A compact smart speaker concept for demo storefronts, designed to showcase voice-ready features and room-filling output in a modern shell.",
+        "price":1599,
+        "featureDesc1":"EchoFrame S2 combines a wide soundstage with clear vocal range for podcasts, calls, and playlists. Multi-input support allows straightforward switching between Bluetooth, optical input, and line-in.",
+        "featureDesc2":"This entry is optimized for static ecommerce demos where realistic product copy, pricing, and structured metadata are required. It reuses local assets so previews remain stable even without external image hosts.",
+        "cartImg":"cart/image-echoframe-s2.jpg",
+        "inTheBox":[
+            ["1x", "Speaker Unit"],
+            ["1x", "Power Cable"],
+            ["1x", "Quick Start Guide"],
+            ["1x", "3.5mm Audio Cable"]
+        ],
+        "gallery":[
+            ["product-echoframe-s2/desktop/image-gallery-1.jpg", "echoframe gallery 1"],
+            ["product-echoframe-s2/desktop/image-gallery-2.jpg", "echoframe gallery 2"],
+            ["product-echoframe-s2/desktop/image-gallery-3.jpg", "echoframe gallery 3"]
+        ],
+        "preference":[
+            {
+                "url":"product-zx9-speaker/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"ZX9 SPEAKER",
+                "link":"/product_detail/zx9"
+            },
+            {
+                "url":"product-xx59-headphones/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"XX59",
+                "link":"/product_detail/xx59"
+            },
+            {
+                "url":"product-yx1-earphones/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"YX1",
+                "link":"/product_detail/yx1"
+            }
+        ]
+    },
+    {
+        "id":"aerobuds-lite",
+        "short":"aerobuds lite",
+        "productIMG": "product-aerobuds-lite/desktop/image-product.jpg",
+        "feature":"demo product",
+        "product":"AeroBuds Lite",
+        "info":"A lightweight true-wireless earbud demo product aimed at commuters who want reliable fit, long battery life, and clean call quality.",
+        "price":449,
+        "featureDesc1":"AeroBuds Lite delivers comfortable in-ear listening with passive noise isolation and simple touch controls. The charging case supports quick top-ups to keep playback available throughout daily travel.",
+        "featureDesc2":"The product metadata follows your current schema exactly, making it useful for testing product listing density, cart behavior, and checkout totals with more catalog variety.",
+        "cartImg":"cart/image-aerobuds-lite.jpg",
+        "inTheBox":[
+            ["2x", "Earbud Units"],
+            ["3x", "Silicone Tip Sizes"],
+            ["1x", "Charging Case"],
+            ["1x", "USB-C Charging Cable"]
+        ],
+        "gallery":[
+            ["product-aerobuds-lite/desktop/image-gallery-1.jpg", "aerobuds gallery 1"],
+            ["product-aerobuds-lite/desktop/image-gallery-2.jpg", "aerobuds gallery 2"],
+            ["product-aerobuds-lite/desktop/image-gallery-3.jpg", "aerobuds gallery 3"]
+        ],
+        "preference":[
+            {
+                "url":"product-xx59-headphones/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"XX59",
+                "link":"/product_detail/xx59"
+            },
+            {
+                "url":"product-zx7-speaker/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"ZX7 SPEAKER",
+                "link":"/product_detail/zx7"
+            },
+            {
+                "url":"product-xx99-mark-one-headphones/desktop/image-product.jpg",
+                "alt":"some awesome picture",
+                "product":"XX99 MARK I",
+                "link":"/product_detail/xx99-mark-i"
+            }
+        ]
     }
 ]

@@ -16,7 +16,7 @@ export async function initProductPage() {
   }
 
   root.innerHTML = `
-    <section class="container product-detail" data-aos="fade" data-aos-duration="1000">
+    <section class="container product-detail" data-product-id="${id}" data-aos="fade" data-aos-duration="1000">
       <button class="go-back" type="button" data-go-back>< Go Back</button>
       <div class="product-hero">
         <div class="product-img-wrap">
