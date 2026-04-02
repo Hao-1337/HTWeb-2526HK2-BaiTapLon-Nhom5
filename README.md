@@ -1,2 +1,2 @@
-<h1>Hân bảy màu</h1>
-- Cả bóc chỉ biết ước
+<h1>Bài tập lớn HTWeb - Nhóm 5</h1>
+<p>Website giới thiệu, bán loa và phụ kiện âm thanh trực tuyến</p>
